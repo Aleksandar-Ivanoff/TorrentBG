@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Software Engineering\\C#\\WEB\\ASPNET MVC Project\\MyWebApp\\TorrentBG.Data\\TorrentBG.Data.csproj": {}
+    "D:\\Software Engineering\\C#\\GitHub repositories\\TorrentBG\\TorrentBG.Data\\TorrentBG.Data.csproj": {}
   },
   "projects": {
-    "D:\\Software Engineering\\C#\\WEB\\ASPNET MVC Project\\MyWebApp\\TorrentBG.Data\\TorrentBG.Data.csproj": {
+    "D:\\Software Engineering\\C#\\GitHub repositories\\TorrentBG\\TorrentBG.Data\\TorrentBG.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Software Engineering\\C#\\WEB\\ASPNET MVC Project\\MyWebApp\\TorrentBG.Data\\TorrentBG.Data.csproj",
+        "projectUniqueName": "D:\\Software Engineering\\C#\\GitHub repositories\\TorrentBG\\TorrentBG.Data\\TorrentBG.Data.csproj",
         "projectName": "TorrentBG.Data",
-        "projectPath": "D:\\Software Engineering\\C#\\WEB\\ASPNET MVC Project\\MyWebApp\\TorrentBG.Data\\TorrentBG.Data.csproj",
+        "projectPath": "D:\\Software Engineering\\C#\\GitHub repositories\\TorrentBG\\TorrentBG.Data\\TorrentBG.Data.csproj",
         "packagesPath": "C:\\Users\\Aleksandar Ivanov\\.nuget\\packages\\",
-        "outputPath": "D:\\Software Engineering\\C#\\WEB\\ASPNET MVC Project\\MyWebApp\\TorrentBG.Data\\obj\\",
+        "outputPath": "D:\\Software Engineering\\C#\\GitHub repositories\\TorrentBG\\TorrentBG.Data\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Aleksandar Ivanov\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,7 +40,15 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[10.1.1, )"
+            },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.7, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[5.0.7, )"
             }

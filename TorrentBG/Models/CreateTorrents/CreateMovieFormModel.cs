@@ -1,5 +1,6 @@
 ﻿namespace TorrentBG.Models.CreateTorrents
 {
+    using AutoMapper.Configuration.Annotations;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using static TorrentBG.Data.DataConstants; 
@@ -8,44 +9,48 @@
     {
          [Required(ErrorMessage = "Please enter Movie Name.")]
          [StringLength(MaxTorrentName,MinimumLength = MinTorrentName)]
-          public string  Name { get; init; }
+         
+          public string  Name { get; set; }
 
-        [Required]
-        public string  Image { get; init; }
+        public string  Image { get; set; }
 
         [Range(MinTorrentYear,MaxTorrentYear)]
         [RegularExpression("^[0-9]+$", ErrorMessage = "Year must be in numbers only!")]
 
-        public int Year { get; init; }
+        public int Year { get; set; }
 
        
         [Range(MinMovieLength,MaxMovieLength)]
         [RegularExpression("^[0-9]+$", ErrorMessage = "Length must be in numbers only!")]
-        public int  Length { get; init; }
+        public int  Length { get; set; }
 
         [Required(ErrorMessage = "Please enter Director name.")]
-        [StringLength(MaxDirectorLength,MinimumLength = MinDirectorLength)]
-        [RegularExpression("[A-z]+$",ErrorMessage ="Director name must be only with letters only!")]
-        public string  Director { get; init; }
+        [StringLength(MaxDirectorLength, MinimumLength = MinDirectorLength)]
+        [RegularExpression("[A-z ]+$", ErrorMessage = "Director name must be  with letters only!")]
+        [Ignore]
+        public string DirectorName { get; set; }
+
+        public string DirectorId { get; set; }
 
         [Required(ErrorMessage ="Please enter Main Actors.")]
         [Display(Name = "Main Actors")]
         [StringLength(MaxMainActorsText,MinimumLength = MinMainActorsText)]
-        [RegularExpression("[A-z]+$", ErrorMessage = "Main Actors  must be  with letters!")]
-        public string MainActors { get; init; }
+        public string MainActors { get; set; }
 
         [Required(ErrorMessage = "Please enter the Description!")]
         [StringLength(MaxDescription,MinimumLength =MinDescription)]
-        public string Description { get; init; }
+        public string Description { get; set; }
 
         [Display(Name = "Category")]
-        public int CategoryId { get; init; }
+        public string CategoryId { get; set; }
 
         [Display(Name = "Genre")]
-        public int GenreId { get; init; }
+        public string GenreId { get; set; }
 
+        [Ignore]
         public IEnumerable<TorrentsGenreViewModel> Genres { get; set; }
 
+        [Ignore]
         public IEnumerable<TorrentsCategoryViewModel> Categories { get; set; }
     }
 }

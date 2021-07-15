@@ -10,3 +10,15 @@ D:\Software Engineering\C#\WEB\ASPNET MVC Project\MyWebApp\TorrentBG.Data\obj\De
 D:\Software Engineering\C#\WEB\ASPNET MVC Project\MyWebApp\TorrentBG.Data\obj\Debug\net5.0\TorrentBG.Data.dll
 D:\Software Engineering\C#\WEB\ASPNET MVC Project\MyWebApp\TorrentBG.Data\obj\Debug\net5.0\ref\TorrentBG.Data.dll
 D:\Software Engineering\C#\WEB\ASPNET MVC Project\MyWebApp\TorrentBG.Data\obj\Debug\net5.0\TorrentBG.Data.pdb
+D:\Software Engineering\C#\GitHub repositories\TorrentBG\TorrentBG.Data\bin\Debug\net5.0\TorrentBG.Data.deps.json
+D:\Software Engineering\C#\GitHub repositories\TorrentBG\TorrentBG.Data\bin\Debug\net5.0\TorrentBG.Data.dll
+D:\Software Engineering\C#\GitHub repositories\TorrentBG\TorrentBG.Data\bin\Debug\net5.0\ref\TorrentBG.Data.dll
+D:\Software Engineering\C#\GitHub repositories\TorrentBG\TorrentBG.Data\bin\Debug\net5.0\TorrentBG.Data.pdb
+D:\Software Engineering\C#\GitHub repositories\TorrentBG\TorrentBG.Data\obj\Debug\net5.0\TorrentBG.Data.csproj.AssemblyReference.cache
+D:\Software Engineering\C#\GitHub repositories\TorrentBG\TorrentBG.Data\obj\Debug\net5.0\TorrentBG.Data.GeneratedMSBuildEditorConfig.editorconfig
+D:\Software Engineering\C#\GitHub repositories\TorrentBG\TorrentBG.Data\obj\Debug\net5.0\TorrentBG.Data.AssemblyInfoInputs.cache
+D:\Software Engineering\C#\GitHub repositories\TorrentBG\TorrentBG.Data\obj\Debug\net5.0\TorrentBG.Data.AssemblyInfo.cs
+D:\Software Engineering\C#\GitHub repositories\TorrentBG\TorrentBG.Data\obj\Debug\net5.0\TorrentBG.Data.csproj.CoreCompileInputs.cache
+D:\Software Engineering\C#\GitHub repositories\TorrentBG\TorrentBG.Data\obj\Debug\net5.0\TorrentBG.Data.dll
+D:\Software Engineering\C#\GitHub repositories\TorrentBG\TorrentBG.Data\obj\Debug\net5.0\ref\TorrentBG.Data.dll
+D:\Software Engineering\C#\GitHub repositories\TorrentBG\TorrentBG.Data\obj\Debug\net5.0\TorrentBG.Data.pdb

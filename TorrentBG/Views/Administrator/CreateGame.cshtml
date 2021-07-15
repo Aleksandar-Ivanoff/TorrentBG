@@ -6,7 +6,7 @@
 
 <section style=" margin-top: -50px;" class="profileBody">
     <h1 style="display: flex; justify-content: center; margin-bottom: 20px; color:rgb(39, 89, 146);">Add Game</h1>
-    <form method="post" asp-controller="Home" asp-action="Index" class="add-torrent">
+    <form method="post"  class="add-torrent">
 
         <div class="torrent-title" style="display: flex; justify-content: center; align-items: center; position: relative; color: rgb(39, 89, 146);">
             <input type="text" asp-for="Name" id="torrentName" placeholder="Enter torrent name: ">
@@ -28,30 +28,35 @@
             <span asp-validation-for="Year" class="text-danger"></span>
 
             <h4>Developers</h4>
-            <input type="text" asp-for="Developer" id="gameDevelopers" placeholder="Enter Game Developers">
-            <span asp-validation-for="Developer" class="text-danger"></span>
+            <input type="text" asp-for="DeveloperName" id="gameDevelopers" placeholder="Enter Game Developers">
+            <span asp-validation-for="DeveloperName" class="text-danger"></span>
 
             <h4>Category</h4>
             <div id="DropDown">
                 <select class="form-control" asp-for="CategoryId">
-                        @foreach (var category in Model.Categories)
-                        {
-                            <option value="@category.Id">@category.Name</option>
-                        }
+                    @foreach (var category in Model.Categories.Where(x => x.Name == "Games"))
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
 
-                    </select>
+                </select>
             </div>
 
             <h4>Genre</h4>
             <div id="DropDown">
                 <select class="form-control" asp-for="GenreId">
                     @foreach (var genre in Model.Genres)
-                        {
-                            <option value="@genre.Id">@genre.Name</option>
-                        }
+                    {
+                        <option value="@genre.Id">@genre.Name</option>
+                    }
 
                 </select>
             </div>
+
+            <h4>Install Instructions</h4>
+            <textarea asp-for="InstallInstructions" id="movieActors" cols="30" rows="10" placeholder="Enter Movie Actors"></textarea>
+            <span asp-validation-for="InstallInstructions" class="text-danger"></span>
+
 
             <h4>Description</h4>
             <textarea asp-for="Description" id="review" cols="30" rows="10" placeholder="Enter Game Description"></textarea>

@@ -26,5 +26,12 @@
         public const int MaxInstructionsLength = 100;
         public const int MinInstructionsLength = 5;
 
+        public const int MaxCityLength = 20;
+        public const int MinCityLength = 4;
+
+        public const int MaxCategoryName = 20;
+
+        public const int MaxGenreName = 20;
+
     }
 }

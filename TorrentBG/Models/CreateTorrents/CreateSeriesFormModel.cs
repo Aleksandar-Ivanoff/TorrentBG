@@ -12,7 +12,7 @@
         [StringLength(MaxTorrentName, MinimumLength = MinTorrentName)]
         public string Name { get; init; }
 
-        [Required]
+        
         public string Image { get; init; }
 
         [Range(MinTorrentYear, MaxTorrentYear)]
@@ -27,13 +27,15 @@
 
         [Required(ErrorMessage = "Please enter Director name.")]
         [StringLength(MaxDirectorLength, MinimumLength = MinDirectorLength)]
-        [RegularExpression("[A-z]+$", ErrorMessage = "Director name must be only with letters only!")]
-        public string Director { get; init; }
+        [RegularExpression("[A-z ]+$", ErrorMessage = "Director name must be only with letters only!")]
+        public string DirectorName { get; init; }
+
+        public string DirectorId { get; set; }
 
         [Required(ErrorMessage = "Please enter Main Actors.")]
         [Display(Name = "Main Actors")]
         [StringLength(MaxMainActorsText, MinimumLength = MinMainActorsText)]
-        [RegularExpression("[A-z]+$", ErrorMessage = "Main Actors  must be  with letters!")]
+       
         public string MainActors { get; init; }
 
         [Required(ErrorMessage = "Please enter the Description!")]
@@ -41,10 +43,10 @@
         public string Description { get; init; }
 
         [Display(Name = "Category")]
-        public int CategoryId { get; init; }
+        public string CategoryId { get; init; }
 
         [Display(Name = "Genre")]
-        public int GenreId { get; init; }
+        public string GenreId { get; init; }
 
         public IEnumerable<TorrentsGenreViewModel> Genres { get; set; }
 

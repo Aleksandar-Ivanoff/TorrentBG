@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -5,7 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using TorrentBG.Common;
 using TorrentBG.Data;
+using TorrentBG.MappingConfiguration;
 
 namespace TorrentBG
 {
@@ -39,6 +42,13 @@ namespace TorrentBG
             })
              .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            //AutoMapper
+            var mapperConfig = new MapperConfiguration(mc =>
+            mc.AddProfile(new TorrentBGProfile()));
+
+            IMapper mapper = mapperConfig.CreateMapper();
+
+            services.AddSingleton(mapper);
 
             services.AddControllersWithViews();
         }
@@ -64,6 +74,8 @@ namespace TorrentBG
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.PrepareDatabase();
 
             app.UseEndpoints(endpoints =>
             {

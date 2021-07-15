@@ -1,5 +1,6 @@
 ﻿namespace TorrentBG.Models.CreateTorrents
 {
+    using AutoMapper.Configuration.Annotations;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -12,7 +13,7 @@
         [StringLength(MaxTorrentName, MinimumLength = MinTorrentName)]
         public string Name { get; init; }
 
-        [Required]
+        
         public string Image { get; init; }
 
         [Range(MinTorrentYear, MaxTorrentYear)]
@@ -20,10 +21,10 @@
         public int Year { get; init; }
 
         [Display(Name="Category")]
-        public int CategoryId { get; init; }
+        public string CategoryId { get; init; }
 
         [Display(Name = "Genre")]
-        public int GenreId { get; init; }
+        public string GenreId { get; init; }
 
         [Required(ErrorMessage = "Please enter  the Description.")]
         [StringLength(MaxDescription, MinimumLength = MinDescription)]
@@ -37,11 +38,15 @@
 
         [Required(ErrorMessage = "Please enter  the Developer Name.")]
         [StringLength(MaxDeveloperLength, MinimumLength = MinDeveloperLength)]
-        [RegularExpression("[A-z]+$", ErrorMessage = "Developer name must be  with letters only!")]
-        public string Developer { get; init; }
+        [RegularExpression("[A-z ]+$", ErrorMessage = "Developer name must be  with letters only!")]
+        [Ignore]
+        public string DeveloperName { get; init; }
 
+        public string DeveloperId { get; set; }
 
+        [Ignore]
         public IEnumerable<TorrentsGenreViewModel> Genres { get; set; }
+        [Ignore]
         public IEnumerable<TorrentsCategoryViewModel> Categories { get; set; }
     }
 }

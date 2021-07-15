@@ -8,8 +8,12 @@ namespace TorrentBG.App.Controllers
 {
     public class TorrentsController : Controller
     {
-        public IActionResult Index()
+        public IActionResult All(string searchTerm)
         {
+            if (!String.IsNullOrEmpty(searchTerm))
+            {
+
+            }
             return View();
         }
 
