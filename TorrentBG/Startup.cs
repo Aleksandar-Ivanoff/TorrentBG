@@ -67,6 +67,7 @@ namespace TorrentBG
                 
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

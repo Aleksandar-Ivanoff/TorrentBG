@@ -3,7 +3,12 @@
 
     using System;
      using System.ComponentModel.DataAnnotations;
-    using static DataConstants;
+    using static DataConstants.Torrent;
+    using static DataConstants.Movie;
+    using static DataConstants.Game;
+    using static DataConstants.Developer;
+    using static DataConstants.Director;
+    using System.Collections.Generic;
 
     public class Torrent
     {
@@ -37,6 +42,10 @@
         
         public Director Director { get; set; }
 
+        
+        public string UploaderId { get; set; }
+        public Uploader Uploader { get; set; }
+
         [Required]
         public string  CategoryId { get; set; }
         public Category Category { get; set; }
@@ -54,7 +63,6 @@
 
         [MaxLength(MaxMainActorsText)]
         public string  MainActors { get; set; }
-
 
     }
 }

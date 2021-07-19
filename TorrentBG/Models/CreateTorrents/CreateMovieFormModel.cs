@@ -3,7 +3,11 @@
     using AutoMapper.Configuration.Annotations;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using static TorrentBG.Data.DataConstants; 
+    using static TorrentBG.Data.DataConstants.Torrent;
+    using static TorrentBG.Data.DataConstants.Movie;
+    using static TorrentBG.Data.DataConstants.Game;
+    using static TorrentBG.Data.DataConstants.Developer;
+    using static TorrentBG.Data.DataConstants.Director;
 
     public class CreateMovieFormModel
     {

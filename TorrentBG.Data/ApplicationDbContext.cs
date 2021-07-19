@@ -1,6 +1,7 @@
 ﻿namespace TorrentBG.Data
 {
-   // using TorrentBG.Data.Models;
+    using Microsoft.AspNetCore.Identity;
+    // using TorrentBG.Data.Models;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
     using TorrentBG.Data.Models;
@@ -20,6 +21,8 @@
         public DbSet<Director> Directors { get; set; }
         public DbSet<Developer> Developers { get; set; }
 
+        public DbSet<Uploader> Uploaders { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -30,6 +33,12 @@
             builder.Entity<Torrent>().HasOne(x => x.Genre).WithMany(x => x.Torrents).HasForeignKey(c => c.GenreId).OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<Torrent>().HasOne(x => x.Director).WithMany(x => x.Torrents).HasForeignKey(c => c.DirectorId).OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Uploader>().HasOne<IdentityUser>().WithOne().HasForeignKey<Uploader>(u => u.UserId).OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Uploader>().HasMany<Torrent>().WithOne().HasForeignKey(x => x.UploaderId).OnDelete(DeleteBehavior.Restrict);
+            
+        
         }
     }
 }
