@@ -1,5 +1,18 @@
 ﻿@{
     ViewData["Title"] = "TorrentBG || Torrents";
+
+    var totalPages = 0;
+
+    if (Model.TotalTorrents % AllTorrentsQueryModel.TorrentsPerPage == 1)
+    {
+        totalPages =(Model.TotalTorrents / AllTorrentsQueryModel.TorrentsPerPage) + 1;
+    }
+    else
+    {
+        totalPages = Model.TotalTorrents / AllTorrentsQueryModel.TorrentsPerPage;
+    }
+
+
 }
 @model AllTorrentsQueryModel 
 
@@ -39,6 +52,30 @@
                     </div>
 
                 </div>
+
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        @if (Model.CurrentPage == 1)
+                        {
+                            <li class="page-item disabled"><a class="page-link" asp-action="All" asp-route-CurrentPage="@(Model.CurrentPage-1)">Previous</a></li>
+                        }
+                        else
+                        {
+                            <li class="page-item"><a class="page-link" asp-action="All" asp-route-CurrentPage="@(Model.CurrentPage-1)">Previous</a></li>
+                        }
+                        @if (Model.CurrentPage == totalPages)
+                        {
+                            <li class="page-item disabled"><a class="page-link" asp-action="All" asp-route-CurrentPage="@(Model.CurrentPage+1)">Next</a></li>
+                        }
+                        else
+                        {
+                            <li class="page-item"><a class="page-link" asp-action="All" asp-route-CurrentPage="@(Model.CurrentPage+1)">Next</a></li>
+                        }
+
+
+                    </ul>
+                </nav>
+
             </form>
             
         </div>

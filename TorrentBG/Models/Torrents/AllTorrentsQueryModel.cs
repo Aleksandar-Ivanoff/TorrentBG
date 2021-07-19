@@ -23,6 +23,8 @@
         public string Category { get; set; }
 
 
+        public int TotalTorrents { get; set; }
+
         public IEnumerable<TorrentListingViewModel> Torrents { get; set;}
 
         public IEnumerable<string> Genres { get; set; }

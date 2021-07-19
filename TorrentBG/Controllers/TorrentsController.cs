@@ -44,10 +44,7 @@
 
                     torrentQuery = torrentQuery.Where(x => x.CategoryId == categoryID);
                 }
-                else
-                {
-                    
-                }
+                
             }
             var categories = this.GetCategoriesForView();
             query.Categories = categories;
@@ -57,6 +54,9 @@
 
             var torrents = this.GetTorrents(query, torrentQuery);
             query.Torrents = torrents;
+
+            var totalTorrents = this.data.Torrents.Count();
+            query.TotalTorrents = totalTorrents;
 
             return View(query);
         }
@@ -90,5 +90,7 @@
 
             return genres;
         }
+
+        
     }
 }
