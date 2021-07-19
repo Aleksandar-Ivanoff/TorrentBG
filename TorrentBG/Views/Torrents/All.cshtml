@@ -1,16 +1,9 @@
 ﻿@{
     ViewData["Title"] = "TorrentBG || Torrents";
 
-    var totalPages = 0;
+    var totalPages = Math.Ceiling((double)Model.TotalTorrents / AllTorrentsQueryModel.TorrentsPerPage);
 
-    if (Model.TotalTorrents % AllTorrentsQueryModel.TorrentsPerPage == 1)
-    {
-        totalPages =(Model.TotalTorrents / AllTorrentsQueryModel.TorrentsPerPage) + 1;
-    }
-    else
-    {
-        totalPages = Model.TotalTorrents / AllTorrentsQueryModel.TorrentsPerPage;
-    }
+
 
 
 }
@@ -61,15 +54,15 @@
                         }
                         else
                         {
-                            <li class="page-item"><a class="page-link" asp-action="All" asp-route-CurrentPage="@(Model.CurrentPage-1)">Previous</a></li>
+                            <li class="page-item"><a class="page-link" asp-action="All" asp-route-CurrentPage="@(Model.CurrentPage-1)" asp-route-Category="@Model.Category" asp-route-Genre="@Model.Genre">Previous</a></li>
                         }
                         @if (Model.CurrentPage == totalPages)
                         {
-                            <li class="page-item disabled"><a class="page-link" asp-action="All" asp-route-CurrentPage="@(Model.CurrentPage+1)">Next</a></li>
+                            <li class="page-item disabled"><a class="page-link" asp-action="All" asp-route-CurrentPage="@(Model.CurrentPage)">Next</a></li>
                         }
                         else
                         {
-                            <li class="page-item"><a class="page-link" asp-action="All" asp-route-CurrentPage="@(Model.CurrentPage+1)">Next</a></li>
+                            <li class="page-item"><a class="page-link" asp-action="All" asp-route-CurrentPage="@(Model.CurrentPage+1)" asp-route-Category="@Model.Category" asp-route-Genre="@Model.Genre">Next</a></li>
                         }
 
 

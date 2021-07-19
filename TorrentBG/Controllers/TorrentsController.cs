@@ -9,7 +9,6 @@
     using AutoMapper;
     using System.Linq;
     using TorrentBG.Data.Models;
-    using TorrentBG.Models.CreateTorrents;
 
     public class TorrentsController : Controller
     {
@@ -55,7 +54,7 @@
             var torrents = this.GetTorrents(query, torrentQuery);
             query.Torrents = torrents;
 
-            var totalTorrents = this.data.Torrents.Count();
+            var totalTorrents = torrentQuery.Count();
             query.TotalTorrents = totalTorrents;
 
             return View(query);
