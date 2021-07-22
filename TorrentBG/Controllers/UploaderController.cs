@@ -2,6 +2,7 @@
 {
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Collections.Generic;
     using System.Linq;
@@ -9,12 +10,12 @@
     using TorrentBG.Data.Models;
     using TorrentBG.Models.CreateTorrents;
 
-    public class AdministratorController : Controller
+    public class UploaderController : Controller
     {
 
         private readonly IMapper mapper;
         private readonly ApplicationDbContext data;
-        public AdministratorController(IMapper mapper,ApplicationDbContext dbContext)
+        public UploaderController(IMapper mapper,ApplicationDbContext dbContext)
         {
             this.data = dbContext;
             this.mapper = mapper;
@@ -22,9 +23,11 @@
 
         public IActionResult Index() => View();
        
+        [Authorize]
         public IActionResult CreateMovie() => View(new CreateMovieFormModel { Categories=this.GetCategories(), Genres=this.GetGenres()});
         
         [HttpPost]
+        [Authorize]
         public IActionResult CreateMovie(CreateMovieFormModel movieFormModel)
         {
             if (!ModelState.IsValid)
@@ -52,9 +55,12 @@
             return RedirectToAction("All", "Torrents");
         }
 
+        [Authorize]
         public IActionResult CreateGame() => View(new CreateGameFormModel {Genres=this.GetGenres(),Categories=this.GetCategories()});
 
+        
         [HttpPost]
+        [Authorize]
         public IActionResult CreateGame(CreateGameFormModel gameModel)
         {
             if (!ModelState.IsValid)
@@ -73,10 +79,11 @@
             return RedirectToAction("All","Torrents");
         }
 
-
+        [Authorize]
         public IActionResult CreateSeries() => View(new CreateSeriesFormModel {Categories=this.GetCategories(),Genres=this.GetGenres()});
 
         [HttpPost]
+        [Authorize]
         public IActionResult CreateSeries(CreateSeriesFormModel seriesModel)
         {
             if (!ModelState.IsValid)

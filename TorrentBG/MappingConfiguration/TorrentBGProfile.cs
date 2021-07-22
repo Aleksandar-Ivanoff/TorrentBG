@@ -4,6 +4,7 @@
     using TorrentBG.Data.Models;
     using TorrentBG.Models.CreateTorrents;
     using TorrentBG.Models.Torrents;
+    using TorrentBG.Models.UserProfile;
 
     public class TorrentBGProfile : Profile
     {
@@ -31,6 +32,9 @@
 
             //Torrents
             this.CreateMap<Torrent, TorrentListingViewModel>();
+
+            //UserProfile
+            this.CreateMap<User, ProfileViewModel>();
             
         }
         

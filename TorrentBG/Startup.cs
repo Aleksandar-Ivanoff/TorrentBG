@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TorrentBG.Common;
 using TorrentBG.Data;
+using TorrentBG.Data.Models;
 using TorrentBG.MappingConfiguration;
 
 namespace TorrentBG
@@ -31,7 +32,7 @@ namespace TorrentBG
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services
-                .AddDefaultIdentity<IdentityUser>(options => 
+                .AddDefaultIdentity<User>(options => 
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;

@@ -16,8 +16,8 @@
         {
             this.Id = Guid.NewGuid().ToString();
         }
+
         [Required]
-      
         public string Id { get; set; } 
 
         [Required]
@@ -43,9 +43,7 @@
         public Director Director { get; set; }
 
         
-        public string UploaderId { get; set; }
-        public Uploader Uploader { get; set; }
-
+       
         [Required]
         public string  CategoryId { get; set; }
         public Category Category { get; set; }
@@ -63,6 +61,9 @@
 
         [MaxLength(MaxMainActorsText)]
         public string  MainActors { get; set; }
+
+
+        public ICollection<User> Users { get; set; } = new HashSet<User>();
 
     }
 }

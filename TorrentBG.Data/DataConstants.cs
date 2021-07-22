@@ -79,6 +79,11 @@
             public const int MaxUploaderName = 30;
         }
        
+        public class User
+        {
+            public const int FullNameMaxLength = 30;
+            public const int UserNameMaxLength = 20;
+        }
 
         
 
