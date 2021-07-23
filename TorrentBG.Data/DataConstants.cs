@@ -82,7 +82,9 @@
         public class User
         {
             public const int FullNameMaxLength = 30;
+            public const int FullNameMinLength = 5;
             public const int UserNameMaxLength = 20;
+            public const int UserNameMinLength = 4;
         }
 
         

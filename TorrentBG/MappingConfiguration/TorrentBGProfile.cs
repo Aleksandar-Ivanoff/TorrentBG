@@ -35,7 +35,12 @@
 
             //UserProfile
             this.CreateMap<User, ProfileViewModel>();
-            
+            this.CreateMap<User, EditProfileFormModel>();
+            this.CreateMap<EditProfileFormModel, User>();
+
+
+            //Cities
+            this.CreateMap<City, CitiesListingViewModel>();
         }
         
     }
