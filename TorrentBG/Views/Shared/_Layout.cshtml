@@ -39,19 +39,7 @@
 
             <nav id="navbar" class="navbar">
                 <ul>
-                    @if (this.User.Identity.IsAuthenticated)
-                    {
-                        <li><a class="nav-link scrollto " asp-controller="User" asp-action="Profile">Profile</a></li>
-                        <li><a class="nav-link scrollto" asp-controller="Catalogs" asp-action="Index">Catalogs</a></li>
-                        <li><a class="nav-link scrollto" asp-controller="Torrents" asp-action="All">Torrents</a></li>
-                        <li><a class="nav-link scrollto" asp-controller="Contacts" asp-action="Index">Contact</a></li>
-                        <partial name="_LoginPartial" />
-                    }
-                    else
-                    {
-                        <partial name="_LoginPartial" />
-                        <li><a class="nav-link scrollto" asp-controller="Contacts" asp-action="Index">Contact</a></li>
-                    }
+                    <partial name="_LoginPartial" />
                 </ul>
 
                 <i class="bi bi-list mobile-nav-toggle"></i>

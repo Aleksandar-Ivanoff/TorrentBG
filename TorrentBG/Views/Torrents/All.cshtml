@@ -75,13 +75,16 @@
 
         @foreach (var torrent in Model.Torrents)
         {
-            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
-                <div class="icon-box iconbox-orange ">
-                    <div class="torrent-img">
-                        <img src="" alt="faster movie thumbnail">
-                    </div>
-                    <h4><a href="">@torrent.Name</a></h4>
-                    <p>@torrent.Description</p>
+            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200" >
+                <div class="icon-box iconbox-orange">
+                    <a asp-controller="Torrents" asp-action="Torrent" asp-route-Id="@torrent.Id">
+                        <div class="torrent-img">
+                            <img src="" alt="faster movie thumbnail">
+                        </div>
+                        <h4><a href="">@torrent.Name</a></h4>
+                        <p>@torrent.Description</p>
+                    </a>
+                    
                 </div>
             </div>
         }

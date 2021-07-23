@@ -9,7 +9,9 @@
     using AutoMapper;
     using System.Linq;
     using TorrentBG.Data.Models;
+    using Microsoft.AspNetCore.Authorization;
 
+    [Authorize]
     public class TorrentsController : Controller
     {
         private readonly ApplicationDbContext data;
@@ -60,8 +62,10 @@
             return View(query);
         }
 
-        public IActionResult Torrent()
+        public IActionResult Torrent(string id)
         {
+           
+
             return View();
         }
 

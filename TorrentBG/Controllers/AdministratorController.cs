@@ -10,12 +10,12 @@
     using TorrentBG.Data.Models;
     using TorrentBG.Models.CreateTorrents;
 
-    public class UploaderController : Controller
+    public class AdministratorController : Controller
     {
 
         private readonly IMapper mapper;
         private readonly ApplicationDbContext data;
-        public UploaderController(IMapper mapper,ApplicationDbContext dbContext)
+        public AdministratorController(IMapper mapper,ApplicationDbContext dbContext)
         {
             this.data = dbContext;
             this.mapper = mapper;
