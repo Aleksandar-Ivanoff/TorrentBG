@@ -3,6 +3,7 @@
     using AutoMapper;
     using TorrentBG.Data.Models;
     using TorrentBG.Models.CreateTorrents;
+    using TorrentBG.Models.Home;
     using TorrentBG.Models.Torrents;
     using TorrentBG.Models.UserProfile;
 
@@ -32,6 +33,9 @@
 
             //Torrents
             this.CreateMap<Torrent, TorrentListingViewModel>();
+            this.CreateMap<Torrent, TorrentDetailsViewModel>()
+                .ForMember(x=>x.Developer,y=>y.MapFrom(y=>y.Developer.FullName))
+                .ForMember(x=>x.Director,y=>y.MapFrom(y=>y.Director.FullName));
 
             //UserProfile
             this.CreateMap<User, ProfileViewModel>();
@@ -41,6 +45,10 @@
 
             //Cities
             this.CreateMap<City, CitiesListingViewModel>();
+
+
+            //HomeTorrents
+            this.CreateMap<Torrent, NewestTorrentsViewModel>();
         }
         
     }

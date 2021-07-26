@@ -4,4 +4,13 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TorrentBG.Data\TorrentBG.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Administrator\" />
+    <Folder Include="User\" />
+  </ItemGroup>
+
 </Project>

@@ -1,6 +1,8 @@
-﻿<section style=" margin-top: -50px;">
+﻿@model TorrentDetailsViewModel
+
+<section style=" margin-top: -50px;">
     <div class="torrent-title" style="display: flex; justify-content: center; align-items: center; position: relative; color: rgb(39, 89, 146);">
-        <h1>Fast and Furios Hobbs and Shaws</h1>
+        <h1 id="torrentName">@Model.Name</h1>
     </div>
     <div class="img-container" style=" display: flex; justify-content: center; align-items: center; flex-direction: column;">
         <hr style="width: 50%;">
@@ -9,17 +11,32 @@
     </div>
     <div class="movie-desc" style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%;">
         <h4>Release Date</h4>
-        <h5 style="font-style: italic; letter-spacing: 1px;">2019</h5>
+        <h5 style="font-style: italic; letter-spacing: 1px;">@Model.ReleaseDate</h5>
         <h4>Lenght(min)</h4>
-        <h5 style="font-style: italic; letter-spacing: 1px;">100</h5>
-        <h4>Director</h4>
-        <h5 style="font-style: italic; letter-spacing: 1px;">GoshoIdi Idva</h5>
-        <h4>Main Actors</h4>
-        <p style="width: 45%; text-align: justify; font-style: italic;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus maiores repudiandae aperiam, assumenda temporibus reiciendis est quos consectetur corporis sed?</p>
-        <h4>Review</h4>
+        <h5 style="font-style: italic; letter-spacing: 1px;">@Model.Length</h5>
+
+        @if (Model.CategoryName == "Games")
+        {
+            <h4>Developer</h4>
+            <a asp-controller="Developer" asp-action="Torrents" asp-route-Id="@Model.DeveloperId"><h5 style="font-style: italic; letter-spacing: 1px;">@Model.Developer</h5></a>
+            
+            <h4>Install Instructions</h4>
+            <p style="width: 45%; text-align: justify; font-style: italic;">@Model.InstallInstructions</p>
+        }
+        else
+        {
+            <h4>Director</h4>
+            <a asp-controller="Director" asp-action="Torrents" asp-route-Id="@Model.DirectorId"><h5 style="font-style: italic; letter-spacing: 1px;">@Model.Director</h5></a>
+            
+            <h4>Main Actors</h4>
+            <p style="width: 45%; text-align: justify; font-style: italic;">@Model.MainActors</p>
+        }
+
+        <h4>Description</h4>
         <p style="width: 45%; text-align: justify; font-style: italic;">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab impedit veniam voluptates placeat quibusdam, blanditiis consequuntur voluptatibus eligendi magni asperiores officiis saepe id quidem reiciendis numquam cum delectus soluta quae quas harum perspiciatis. Amet, sed! Dolore reiciendis excepturi, cumque ab odit omnis illo vel sit obcaecati pariatur nobis, officiis nam eligendi eos beatae repellat modi quam tenetur nemo qui eum incidunt assumenda exercitationem? Minima porro at maiores eligendi cumque non. Voluptates excepturi nihil placeat libero distinctio vel tempore suscipit quam mollitia id? Distinctio itaque mollitia veniam ullam iure. Veniam consequuntur quisquam aliquam explicabo iure praesentium dignissimos dolor amet delectus et.
+            @Model.Description
         </p>
+        <h4>Downloads(@Model.Downloads)</h4>
         <button>Download</button>
         <hr style="width: 50%;">
     </div>

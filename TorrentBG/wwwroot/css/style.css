@@ -1885,6 +1885,9 @@ section {
 }
 
 /* TorrentPage */
+#torrentName{
+    margin-top:65px;
+}
 .torrent-img img{
   width: 300px;
   height: 450px;

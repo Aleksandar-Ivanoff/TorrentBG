@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TorrentBG.Data\TorrentBG.Data.csproj" />
+    <ProjectReference Include="..\TorrentBG.Services\TorrentBG.Services.csproj" />
   </ItemGroup>
 
 </Project>

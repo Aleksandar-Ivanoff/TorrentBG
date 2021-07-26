@@ -41,6 +41,7 @@ namespace TorrentBG
 
 
             })
+             .AddRoles<IdentityRole>()
              .AddEntityFrameworkStores<ApplicationDbContext>();
 
             //AutoMapper

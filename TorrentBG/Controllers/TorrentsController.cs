@@ -10,6 +10,7 @@
     using System.Linq;
     using TorrentBG.Data.Models;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.EntityFrameworkCore;
 
     [Authorize]
     public class TorrentsController : Controller
@@ -64,9 +65,17 @@
 
         public IActionResult Torrent(string id)
         {
-           
+            var torrent = this.data.Torrents
+                .Include(x => x.Developer)
+                .Include(x=>x.Category)
+                .Include(x=>x.Director)
+                .Where(x => x.Id == id).FirstOrDefault();
 
-            return View();
+            var torrentModel = this.mapper.Map<TorrentDetailsViewModel>(torrent);
+
+            torrentModel.Downloads = torrent.Users.Count;
+
+            return View(torrentModel);
         }
 
         private ICollection<TorrentListingViewModel> GetTorrents(AllTorrentsQueryModel query,IQueryable<Torrent> torrentQuery)
