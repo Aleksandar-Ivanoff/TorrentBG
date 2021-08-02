@@ -6,6 +6,8 @@
     using TorrentBG.Models.Home;
     using TorrentBG.Models.Torrents;
     using TorrentBG.Models.UserProfile;
+    using TorrentBG.Services.City.Models;
+    using TorrentBG.Services.User.Models;
 
     public class TorrentBGProfile : Profile
     {
@@ -38,13 +40,15 @@
                 .ForMember(x=>x.Director,y=>y.MapFrom(y=>y.Director.FullName));
 
             //UserProfile
-            this.CreateMap<User, ProfileViewModel>();
-            this.CreateMap<User, EditProfileFormModel>();
-            this.CreateMap<EditProfileFormModel, User>();
+            this.CreateMap<UserProfileServiceModel, ProfileViewModel>();
+            this.CreateMap<UserProfileServiceModel, EditProfileFormModel>();
+            this.CreateMap<UserProfileServiceModel, EditProfileFormModel>().ReverseMap();
+
 
 
             //Cities
-            this.CreateMap<City, CitiesListingViewModel>();
+            this.CreateMap<CityListServiceModel, CitiesListingViewModel>();
+
 
 
             //HomeTorrents

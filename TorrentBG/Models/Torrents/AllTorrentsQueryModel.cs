@@ -6,7 +6,7 @@
     public class AllTorrentsQueryModel
     {
 
-        public const int TorrentsPerPage = 2;
+        public const int TorrentsPerPage = 3;
 
         public string  SearchTerm { get; set; }
 

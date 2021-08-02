@@ -3,7 +3,7 @@
 
     var totalPages = Math.Ceiling((double)Model.TotalTorrents / AllTorrentsQueryModel.TorrentsPerPage);
 }
-@model AllTorrentsQueryModel 
+@model AllTorrentsQueryModel
 
 <section id="services" class="services section-bg">
     <div class="container" data-aos="fade-up">
@@ -25,8 +25,8 @@
                             }
                         </select>
                     </div>
-
                 </div>
+
                 <div class="form-group col-md-4">
                     <div class="form-group">
                         <label asp-for="Category"></label>
@@ -66,13 +66,14 @@
                 </nav>
 
             </form>
-            
+
         </div>
 
-        @foreach (var torrent in Model.Torrents)
-        {
-            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200" >
-                <div class="icon-box iconbox-orange">
+        
+        <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0 justify-content-between" data-aos="zoom-in" data-aos-delay="200">
+            @foreach (var torrent in Model.Torrents)
+            {
+                <div class="icon-box iconbox-orange" style="margin: 20px 50px" >
                     <a asp-controller="Torrents" asp-action="Torrent" asp-route-Id="@torrent.Id">
                         <div class="torrent-img">
                             <img src="" alt="faster movie thumbnail">
@@ -80,10 +81,11 @@
                         <h4><a href="">@torrent.Name</a></h4>
                         <p>@torrent.Description</p>
                     </a>
-                    
+
                 </div>
+            }
             </div>
-        }
+        
 
 
     </div>

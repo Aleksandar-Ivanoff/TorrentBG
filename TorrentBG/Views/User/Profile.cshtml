@@ -101,12 +101,15 @@
 <div id="myModal" class="modal">
 
     <!-- Modal content -->
-    <div class="modal-content" style="position:relative; height: 150px;" onclick="CancelEvent()">
-        <h1 class="close" style="width: 15px; font-size: 40px; position: absolute; right: 10px; top:-10px;" onclick="CancelEvent()">&times;</h1>
-        <p>Are you sure you want to delete your profile?</p>
-        <button id="cancel" style="width: 150px; position: absolute; bottom: 30px; right: 300px; background-color: rgb(62, 62, 95); color:white; border: none; " onclick="CancelEvent()"> Cancel</button>
-        <br>
-        <button class=" btn-outline-primary" style="width: 150px; position: absolute; bottom: 30px; left: 300px; border: none;" asp-action="Delete"> Delete</button>
+    <div class="modal-content" style="position:relative; height: 150px;">
+        
+            <h1 class="close" style="width: 15px; font-size: 40px; position: absolute; right: 10px; top:-10px;" onclick="CancelEvent()">&times;</h1>
+            <p>Are you sure you want to delete your profile?</p>
+            <button id="cancel" style="width: 150px; position: absolute; bottom: 30px; right: 300px; background-color: rgb(62, 62, 95); color:white; border: none; " onclick="CancelEvent()"> Cancel</button>
+            <br>
+            <input type="hidden" asp-for="Id" />
+           
+            <a  asp-action="Delete" asp-route-Id="@Model.Id"> <button class=" btn-outline-primary" style="width: 150px; position: absolute; bottom: 30px; left: 300px; border: none;"> Delete</button></a>
     </div>
 </div>
 

@@ -21,7 +21,7 @@
             <a asp-controller="Developer" asp-action="Torrents" asp-route-Id="@Model.DeveloperId"><h5 style="font-style: italic; letter-spacing: 1px;">@Model.Developer</h5></a>
             
             <h4>Install Instructions</h4>
-            <p style="width: 45%; text-align: justify; font-style: italic;">@Model.InstallInstructions</p>
+            <p style="width: 45%; text-align: center; font-style: italic;">@Model.InstallInstructions</p>
         }
         else
         {
@@ -29,11 +29,11 @@
             <a asp-controller="Director" asp-action="Torrents" asp-route-Id="@Model.DirectorId"><h5 style="font-style: italic; letter-spacing: 1px;">@Model.Director</h5></a>
             
             <h4>Main Actors</h4>
-            <p style="width: 45%; text-align: justify; font-style: italic;">@Model.MainActors</p>
+            <p style="width: 45%; text-align: center; font-style: italic;">@Model.MainActors</p>
         }
 
         <h4>Description</h4>
-        <p style="width: 45%; text-align: justify; font-style: italic;">
+        <p style="width: 45%; text-align: center; font-style: italic;" >
             @Model.Description
         </p>
         <h4>Downloads(@Model.Downloads)</h4>

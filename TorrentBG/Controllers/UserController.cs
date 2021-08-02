@@ -8,42 +8,50 @@
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using TorrentBG.Data;
     using TorrentBG.Data.Models;
     using TorrentBG.Models.UserProfile;
-
+    using TorrentBG.Services.City;
+    using TorrentBG.Services.User;
 
     [Authorize]
     public class UserController : Controller
     {
         private readonly IMapper mapper;
+        private readonly IUserService userService;
         private readonly ApplicationDbContext data;
+        private readonly ICityService cityService;
+        private readonly SignInManager<User> signInManager;
 
-        public UserController(IMapper mapper,ApplicationDbContext dbContext)
+        public UserController(IMapper mapper,ApplicationDbContext dbContext,IUserService userService, ICityService cityService,SignInManager<User> signInManager)
         {
             this.mapper = mapper;
             this.data = dbContext;
+            this.userService = userService;
+            this.cityService = cityService;
+            this.signInManager = signInManager;
         }
         
         public IActionResult Profile()
         {
-            var user = this.data.Users.FirstOrDefault(x => x.Id == this.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var currentUser = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var user = this.userService.GetCurrentProfile(currentUser);
 
             var userModel = this.mapper.Map<ProfileViewModel>(user);
-            var userCity = this.data.Cities.Where(x => x.Id == user.CityId).FirstOrDefault();
+           
 
-            userModel.City = userCity.Name;
             return View(userModel);
         }
         
         public IActionResult Edit(string Id)
         {
-            var profile = this.data.Users.Find(Id);
+            var profile = this.userService.GetCurrentProfile(Id);
 
 
             var profileViewModel = this.mapper.Map<EditProfileFormModel>(profile);
-            profileViewModel.Cities = this.GetCities();
+            profileViewModel.Cities = this.cityService.GetCities().ProjectTo<CitiesListingViewModel>(this.mapper.ConfigurationProvider).ToList();
 
             return View(profileViewModel);
         }
@@ -55,26 +63,25 @@
             {
                 return View(profileModel);
             }
-
-            //var cityId = this.data.Cities.Where(x => x.Name == profileModel.City).Select(x => x.Id).ToString();
-
-            if (!String.IsNullOrEmpty(profileModel.CityId))
+            if (profileModel.CityId == "None")
             {
-                //ToDo
+                profileModel.CityId = null;
             }
-            var profileToEdit = this.data.Users.Find(profileModel.Id);
 
-            profileToEdit = this.mapper.Map(profileModel, profileToEdit);
-
-            this.data.Users.Update(profileToEdit);
-            this.data.SaveChanges();
+            this.userService.EditProfile(userId:profileModel.Id,FullName: profileModel.FullName, email:profileModel.Email, phoneNumber:profileModel.PhoneNumber, cityId:profileModel.CityId, userName:profileModel.UserName);
+            
             return RedirectToAction("Profile", "User");
 
         }
 
-        private IEnumerable<CitiesListingViewModel> GetCities()
+       
+        public IActionResult Delete(string Id)
         {
-            return this.data.Cities.ProjectTo<CitiesListingViewModel>(mapper.ConfigurationProvider);
+            this.userService.DeleteProfile(Id);
+
+            this.signInManager.SignOutAsync();  
+            return   RedirectToAction("Index", "Home");
         }
+
     }
 }

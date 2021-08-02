@@ -51,7 +51,7 @@ namespace TorrentBG.Areas.Identity.Pages.Account
             public string Password { get; set; }
 
             [Display(Name = "Remember me?")]
-            public bool RememberMe { get; set; }
+            public bool RememberMe { get; } = true;
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -68,6 +68,7 @@ namespace TorrentBG.Areas.Identity.Pages.Account
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
+           
             ReturnUrl = returnUrl;
         }
 

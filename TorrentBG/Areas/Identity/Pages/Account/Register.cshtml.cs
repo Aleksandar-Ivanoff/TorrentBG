@@ -54,12 +54,12 @@ namespace TorrentBG.Areas.Identity.Pages.Account
 
 
             [Required]
-            [MaxLength(UserNameMaxLength)]
+            [StringLength(UserNameMaxLength,MinimumLength =UserNameMinLength)]
             [Display(Name = "Username")]
             public string UserName { get; set; }
 
             [Required]
-            [MaxLength(UserNameMaxLength)]
+            [StringLength(FullNameMaxLength,MinimumLength =FullNameMinLength)]
             [Display(Name = "Full Name")]
             public string FullName { get; set; }
 

@@ -2,6 +2,7 @@
 {
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using System.Linq;
     using TorrentBG.Data;
@@ -13,15 +14,14 @@
     {
         private readonly IMapper mapper;
         private readonly ApplicationDbContext data;
+        private readonly IHttpContextAccessor httpContext;
 
-        public HomeController(IMapper mapper,ApplicationDbContext dbContext)
+        public HomeController(IMapper mapper,ApplicationDbContext dbContext, IHttpContextAccessor httpContext)
         {
             this.mapper = mapper;
             this.data = dbContext;
+            this.httpContext = httpContext;
         }
 
-
-
-
-        public IActionResult Index()         {            var torrents = this.data.Torrents.ProjectTo<NewestTorrentsViewModel>(mapper.ConfigurationProvider).OrderByDescending(x => x.Id).ToList();            return View(torrents);        }    }
+        public IActionResult Index()         {            var torrents = this.data.Torrents.ProjectTo<NewestTorrentsViewModel>(mapper.ConfigurationProvider).OrderByDescending(x => x.Id).ToList();                        return View(torrents);        }    }
 }

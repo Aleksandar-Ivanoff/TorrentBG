@@ -1,6 +1,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -10,15 +11,14 @@ using TorrentBG.Common;
 using TorrentBG.Data;
 using TorrentBG.Data.Models;
 using TorrentBG.MappingConfiguration;
+using TorrentBG.Services.City;
+using TorrentBG.Services.User;
 
 namespace TorrentBG
 {
     public class Startup
     {
         public Startup(IConfiguration configuration) => Configuration = configuration;
-
-
-
 
         public IConfiguration Configuration { get; }
 
@@ -38,6 +38,7 @@ namespace TorrentBG
                 options.Password.RequireLowercase = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireNonAlphanumeric = false;
+                
 
 
             })
@@ -46,13 +47,24 @@ namespace TorrentBG
 
             //AutoMapper
             var mapperConfig = new MapperConfiguration(mc =>
-            mc.AddProfile(new TorrentBGProfile()));
+            {
+                mc.AddProfile(new TorrentBGProfile());
+                mc.AddProfile(new TorrentBGServiceProfile());
 
+            });
+            
             IMapper mapper = mapperConfig.CreateMapper();
-
             services.AddSingleton(mapper);
 
             services.AddControllersWithViews();
+
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ICityService, CityService>();
+
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        
+        
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -79,6 +91,8 @@ namespace TorrentBG
             app.UseAuthorization();
 
             app.PrepareDatabase();
+
+           
 
             app.UseEndpoints(endpoints =>
             {
