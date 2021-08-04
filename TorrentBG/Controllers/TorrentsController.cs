@@ -11,66 +11,41 @@
     using TorrentBG.Data.Models;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.EntityFrameworkCore;
+    using TorrentBG.Services.Torrent;
 
     [Authorize]
     public class TorrentsController : Controller
     {
         private readonly ApplicationDbContext data;
         private readonly IMapper mapper;
+        private readonly ITorrentService torrentService;
 
-        public TorrentsController(ApplicationDbContext dbContext, IMapper mapper)
+        public TorrentsController(ApplicationDbContext dbContext, IMapper mapper, ITorrentService torrentService)
         {
             this.data = dbContext;
             this.mapper = mapper;
+            this.torrentService = torrentService;
         }
         public IActionResult All([FromQuery]AllTorrentsQueryModel query)
         {
-            var torrentQuery = this.data.Torrents.AsQueryable();
-            if (!String.IsNullOrEmpty(query.SearchTerm))
-            {
-                torrentQuery = torrentQuery.Where(x => x.Name.ToLower().Contains(query.SearchTerm.ToLower()));
-            }
-            if (!String.IsNullOrEmpty(query.Genre))
-            {
-                if (query.Genre != "All" )
-                {
-                    var genreID = this.data.Genres.Where(x => x.Name == query.Genre).Select(x => x.Id).FirstOrDefault();
-                    torrentQuery = torrentQuery.Where(x => x.GenreId == genreID);
-                }
-            }
-            if (!String.IsNullOrEmpty(query.Category))
-            {
-                if (query.Category !="All")
-                {
-                    var categoryID = this.data.Categories.Where(x => x.Name == query.Category).Select(x => x.Id).FirstOrDefault();
 
-                    torrentQuery = torrentQuery.Where(x => x.CategoryId == categoryID);
-                }
-                
-            }
-            var categories = this.GetCategoriesForView();
-            query.Categories = categories;
+            var torrentServiceModel = this.torrentService.All(searchTerm: query.SearchTerm, genre: query.Genre, category: query.Category,currentPage:query.CurrentPage,torrentsPerPage:AllTorrentsQueryModel.TorrentsPerPage);
 
-            var genres = this.GetGenresForView();
-            query.Genres = this.GetGenresForView();
+            query = this.mapper.Map<AllTorrentsQueryModel>(torrentServiceModel);
 
-            var torrents = this.GetTorrents(query, torrentQuery);
-            query.Torrents = torrents;
+            query.Categories = torrentServiceModel.Categories;
 
-            var totalTorrents = torrentQuery.Count();
-            query.TotalTorrents = totalTorrents;
+            query.Genres = torrentServiceModel.Genres;
+
+            query.Torrents = torrentServiceModel.Torrents;
 
             return View(query);
         }
 
         public IActionResult Torrent(string id)
         {
-            var torrent = this.data.Torrents
-                .Include(x => x.Developer)
-                .Include(x=>x.Category)
-                .Include(x=>x.Director)
-                .Where(x => x.Id == id).FirstOrDefault();
-
+            var torrent = this.torrentService.GetTorrentById(id);
+                
             var torrentModel = this.mapper.Map<TorrentDetailsViewModel>(torrent);
 
             torrentModel.Downloads = torrent.Users.Count;
@@ -78,31 +53,6 @@
             return View(torrentModel);
         }
 
-        private ICollection<TorrentListingViewModel> GetTorrents(AllTorrentsQueryModel query,IQueryable<Torrent> torrentQuery)
-        {
-            var torrents = torrentQuery
-                 .Skip((query.CurrentPage - 1) * AllTorrentsQueryModel.TorrentsPerPage)
-                 .Take(AllTorrentsQueryModel.TorrentsPerPage).ProjectTo<TorrentListingViewModel>(mapper.ConfigurationProvider).ToList();
 
-            return torrents;
-        }
-
-        private ICollection<string> GetCategoriesForView()
-        {
-            var categories = this.data.Categories.Select(x=>x.Name).ToList();
-
-
-            return categories;
-        }
-
-        private ICollection<string> GetGenresForView()
-        {
-            var genres = this.data.Genres.Select(x=>x.Name).ToList();
-
-
-            return genres;
-        }
-
-        
     }
 }

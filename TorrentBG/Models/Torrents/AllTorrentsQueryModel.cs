@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using TorrentBG.Services.Torrent.Models;
 
     public class AllTorrentsQueryModel
     {
@@ -25,7 +26,7 @@
 
         public int TotalTorrents { get; set; }
 
-        public IEnumerable<TorrentListingViewModel> Torrents { get; set;}
+        public IEnumerable<TorrentListServiceModel> Torrents { get; set;}
 
         public IEnumerable<string> Genres { get; set; }
 

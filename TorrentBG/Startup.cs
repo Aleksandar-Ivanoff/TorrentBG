@@ -11,7 +11,10 @@ using TorrentBG.Common;
 using TorrentBG.Data;
 using TorrentBG.Data.Models;
 using TorrentBG.MappingConfiguration;
+using TorrentBG.Services.Category;
 using TorrentBG.Services.City;
+using TorrentBG.Services.Genre;
+using TorrentBG.Services.Torrent;
 using TorrentBG.Services.User;
 
 namespace TorrentBG
@@ -60,6 +63,9 @@ namespace TorrentBG
 
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ICityService, CityService>();
+            services.AddTransient<IGenreService, GenreService>();
+            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<ITorrentService, TorrentService>();
 
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

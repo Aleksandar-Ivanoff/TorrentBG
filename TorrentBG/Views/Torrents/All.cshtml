@@ -78,7 +78,7 @@
                         <div class="torrent-img">
                             <img src="" alt="faster movie thumbnail">
                         </div>
-                        <h4><a href="">@torrent.Name</a></h4>
+                        <h4><a   asp-controller="Torrents" asp-action="Torrent" asp-route-id="@torrent.Id">@torrent.Name</a></h4>
                         <p>@torrent.Description</p>
                     </a>
 
