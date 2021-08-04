@@ -61,6 +61,7 @@
                 SearchTerm = searchTerm,
                 TotalTorrents = torrentQuery.Count(),
                 Torrents = GetTorrents(torrentQuery.Skip((currentPage - 1) * torrentsPerPage).Take(torrentsPerPage)),
+                CurrentPage=currentPage,
             };
         }
         private static IEnumerable<TorrentListServiceModel> GetTorrents(IQueryable<Torrent> torrentQuery)
@@ -72,9 +73,10 @@
                     Id = x.Id,
                     Image = x.Image,
                     Name = x.Name,
-
+                    
                 }).ToList();
 
+            
             return torrents;
         }
 

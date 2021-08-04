@@ -1,10 +1,15 @@
 ﻿namespace TorrentBG.Common
 {
+    using System;
+    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
     using TorrentBG.Data;
     using TorrentBG.Data.Models;
+
+    using static Areas.Admin.AdminConstants;
 
     public static class ApplicationBuilderExtension
     {
@@ -14,11 +19,14 @@
 
             var data = scopedService.ServiceProvider.GetService<ApplicationDbContext>();
 
+            var serviceProvider = scopedService.ServiceProvider;
+
             data.Database.Migrate();
 
             //SeedCities(data);
             //SeedCategories(data);
             //SeedGenres(data);
+            SeedAdministrator(serviceProvider);
 
             return app;  
           
@@ -67,6 +75,39 @@
 
             });
             db.SaveChanges();
+        }
+
+        private static void SeedAdministrator(IServiceProvider services)
+        {
+            var userManager = services.GetRequiredService<UserManager<User>>();
+            var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+            Task
+                .Run(async () =>
+                {
+                    if (await roleManager.RoleExistsAsync(AdministratorRoleName))
+                    {
+                        return;
+                    }
+
+                    var role = new IdentityRole { Name = AdministratorRoleName, Id = Guid.NewGuid().ToString() };
+                    await roleManager.CreateAsync(role);
+
+                    var adminUser = new User
+                    {
+                        UserName = AdminUserName,
+                        Email= AdminEmail,
+                        FullName= "Admin"
+                    };
+
+
+                    await userManager.CreateAsync(adminUser, AdminPassword);
+
+                    await userManager.AddToRoleAsync(adminUser, role.Name);
+
+                }).GetAwaiter().GetResult();
+           
+                
         }
     }
 }

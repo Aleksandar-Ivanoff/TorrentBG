@@ -16,5 +16,7 @@
         public IEnumerable<string> Categories { get; set; }
 
         public int TotalTorrents { get; set; }
+
+        public int CurrentPage { get; set; }
     }
 }
