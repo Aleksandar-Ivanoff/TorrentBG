@@ -73,16 +73,23 @@
         <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0 justify-content-between" data-aos="zoom-in" data-aos-delay="200">
             @foreach (var torrent in Model.Torrents)
             {
-                <div class="icon-box iconbox-orange" style="margin: 20px 50px" >
-                    <a asp-controller="Torrents" asp-action="Torrent" asp-route-Id="@torrent.Id">
-                        <div class="torrent-img">
-                            <img src="" alt="faster movie thumbnail">
-                        </div>
-                        <h4><a   asp-controller="Torrents" asp-action="Torrent" asp-route-id="@torrent.Id">@torrent.Name</a></h4>
-                        <p>@torrent.Description</p>
-                    </a>
+            <div class="icon-box iconbox-orange" style="margin: 20px 50px">
+                <a asp-controller="Torrents" asp-action="Torrent" asp-route-Id="@torrent.Id">
+                    <div class="torrent-img">
+                        <img src="" alt="faster movie thumbnail">
+                    </div>
+                    <h4><a asp-controller="Torrents" asp-action="Torrent" asp-route-id="@torrent.Id">@torrent.Name</a></h4>
+                    <p>@torrent.Description</p>
 
-                </div>
+                </a>
+                @if (this.User.IsAdmin())
+                {
+                    <button type="button" class="btn btn-warning" asp-controller="Administrator" asp-action="Edit">Edit</button>
+                    <button type="button" class="btn btn-danger"asp-controller="Administrator" asp-action="Delete">Delete</button>
+                }
+
+
+            </div>
             }
             </div>
         

@@ -25,4 +25,9 @@
     <ProjectReference Include="..\TorrentBG.Services\TorrentBG.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Views\Torrents\" />
+    <Folder Include="Models\CreateTorrents\" />
+  </ItemGroup>
+
 </Project>

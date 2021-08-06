@@ -13,6 +13,8 @@ using TorrentBG.Data.Models;
 using TorrentBG.MappingConfiguration;
 using TorrentBG.Services.Category;
 using TorrentBG.Services.City;
+using TorrentBG.Services.Developer;
+using TorrentBG.Services.Director;
 using TorrentBG.Services.Genre;
 using TorrentBG.Services.Torrent;
 using TorrentBG.Services.User;
@@ -66,6 +68,9 @@ namespace TorrentBG
             services.AddTransient<IGenreService, GenreService>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<ITorrentService, TorrentService>();
+            services.AddTransient<IDeveloperService, DeveloperService>();
+            services.AddTransient<IDirectorService, DirectorService>();
+           
 
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -102,6 +107,11 @@ namespace TorrentBG
 
             app.UseEndpoints(endpoints =>
             {
+
+                endpoints.MapControllerRoute(
+                    name: "Areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

@@ -5,10 +5,13 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using TorrentBG.Services.Genre.Models;
 
-   public interface IGenreService
+    public interface IGenreService
     {
-        ICollection<string> GetGenresForQuery();
+        ICollection<string> GetGenresNameForQuery();
         string GetGenreIdByName(string genreName);
+
+        IEnumerable<GenreDropDownServiceModel> GetGenresForDropDown();
     }
 }

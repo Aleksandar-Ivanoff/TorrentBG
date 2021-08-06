@@ -1,4 +1,4 @@
-﻿namespace TorrentBG.Models.CreateTorrents
+﻿namespace TorrentBG.Areas.Admin.Models
 {
     using System;
     using System.Collections.Generic;
@@ -9,6 +9,9 @@
     using static TorrentBG.Data.DataConstants.Game;
     using static TorrentBG.Data.DataConstants.Developer;
     using static TorrentBG.Data.DataConstants.Director;
+    using TorrentBG.Models.CreateTorrents;
+    using TorrentBG.Services.Category.Models;
+    using TorrentBG.Services.Genre.Models;
 
     public class CreateSeriesFormModel
     {
@@ -52,8 +55,8 @@
         [Display(Name = "Genre")]
         public string GenreId { get; init; }
 
-        public IEnumerable<TorrentsGenreViewModel> Genres { get; set; }
+        public IEnumerable<GenreDropDownServiceModel> Genres { get; set; }
 
-        public IEnumerable<TorrentsCategoryViewModel> Categories { get; set; }
+        public IEnumerable<CategoryDropDownServiceModel> Categories { get; set; }
     }
 }

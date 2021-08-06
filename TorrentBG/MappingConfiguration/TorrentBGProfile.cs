@@ -1,6 +1,7 @@
 ﻿namespace TorrentBG.MappingConfiguration
 {
     using AutoMapper;
+    using TorrentBG.Areas.Admin.Models;
     using TorrentBG.Data.Models;
     using TorrentBG.Models.CreateTorrents;
     using TorrentBG.Models.Home;
@@ -15,14 +16,14 @@
         public TorrentBGProfile()
         {
             //CreateGame
-            this.CreateMap<CreateGameFormModel, Torrent>();
+            this.CreateMap<CreateGameFormModel, CreateGameFormServiceModel>();
             
 
             //CreateMovie
-            this.CreateMap<CreateMovieFormModel,Torrent>().ForMember(x => x.Name, y => y.MapFrom(x => x.Name)).ForMember(x => x.GenreId, y => y.MapFrom(x => x.GenreId)).ForMember(x => x.DirectorId, y => y.MapFrom(x => x.DirectorId));
+            this.CreateMap<CreateMovieFormModel,CreateMovieFormServiceModel>().ForMember(x => x.Name, y => y.MapFrom(x => x.Name)).ForMember(x => x.GenreId, y => y.MapFrom(x => x.GenreId)).ForMember(x => x.DirectorId, y => y.MapFrom(x => x.DirectorId));
 
             //CreateSeries
-            this.CreateMap<CreateSeriesFormModel, Torrent>();
+            this.CreateMap<CreateSeriesFormModel, CreateSeriesFormServiceModel>();
 
 
             //Categories
@@ -53,9 +54,8 @@
             this.CreateMap<CityListServiceModel, CitiesListingViewModel>();
 
 
-
             //HomeTorrents
-            this.CreateMap<Torrent, NewestTorrentsViewModel>();
+            this.CreateMap<NewestTorrentsServiceModel, NewestTorrentsViewModel>();
         }
         
     }

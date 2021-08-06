@@ -1,4 +1,4 @@
-﻿namespace TorrentBG.Models.CreateTorrents
+﻿namespace TorrentBG.Areas.Admin.Models
 {
     using AutoMapper.Configuration.Annotations;
     using System.Collections.Generic;
@@ -8,13 +8,16 @@
     using static TorrentBG.Data.DataConstants.Game;
     using static TorrentBG.Data.DataConstants.Developer;
     using static TorrentBG.Data.DataConstants.Director;
+    using TorrentBG.Models.CreateTorrents;
+    using TorrentBG.Services.Category.Models;
+    using TorrentBG.Services.Genre.Models;
 
     public class CreateMovieFormModel
     {
          [Required(ErrorMessage = "Please enter Movie Name.")]
          [StringLength(MaxTorrentName,MinimumLength = MinTorrentName)]
          
-          public string  Name { get; set; }
+        public string  Name { get; set; }
 
         public string  Image { get; set; }
 
@@ -52,9 +55,9 @@
         public string GenreId { get; set; }
 
         [Ignore]
-        public IEnumerable<TorrentsGenreViewModel> Genres { get; set; }
+        public IEnumerable<GenreDropDownServiceModel> Genres { get; set; }
 
         [Ignore]
-        public IEnumerable<TorrentsCategoryViewModel> Categories { get; set; }
+        public IEnumerable<CategoryDropDownServiceModel> Categories { get; set; }
     }
 }
