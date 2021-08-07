@@ -31,5 +31,12 @@
             }
             return new DirectorServiceModel {Id= result.Id, Name=result.FullName };
         }
+
+        public string GetDirectorName(string directorId)
+        {
+           var director = this.data.Directors.Where(x => x.Id == directorId).FirstOrDefault();
+
+            return director.FullName;
+        }        
     }
 }

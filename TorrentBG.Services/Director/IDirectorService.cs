@@ -9,6 +9,7 @@
 
     public interface IDirectorService
     {
-        DirectorServiceModel GetDirector(string name); 
+        DirectorServiceModel GetDirector(string name);
+        string GetDirectorName(string directorId);
     }
 }

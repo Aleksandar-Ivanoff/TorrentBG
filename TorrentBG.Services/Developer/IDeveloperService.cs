@@ -11,5 +11,6 @@
     public interface IDeveloperService
     {
         DeveloperServiceModel GetDeveloper(string name);
+        string GetDeveloperName(string id);
     }
 }

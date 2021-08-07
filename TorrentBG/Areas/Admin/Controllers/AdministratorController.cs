@@ -105,18 +105,28 @@
 
         public IActionResult Edit(string Id)
         {
-            return View();
+           var editModel= this.torrentService.GetEditModelForView(Id);
+
+            var modelToSend = this.mapper.Map<EditTorrentFormModel>(editModel);
+
+            modelToSend.Categories = this.categoryService.GetCategoriesForDropDown();
+            modelToSend.Genres = this.genreService.GetGenresForDropDown();
+
+            return View(modelToSend);
         }
 
         [HttpPost]
-        public IActionResult Edit()
+        public IActionResult Edit(EditTorrentFormModel editModel)
         {
-            return View();
+            var mapped=this.mapper.Map<EditTorrentFormServiceModel>(editModel);
+            this.torrentService.Edit(mapped);
+            return RedirectToAction("All","Torrents",new {area="" });
         }
 
         [HttpPost]
         public IActionResult Delete(string Id)
         {
+            //TODO
             return View();
         }
 

@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
     using AutoMapper;
     using TorrentBG.Data.Models;
+    using TorrentBG.Services.Torrent.Models;
     using TorrentBG.Services.User.Models;
 
     public class TorrentBGServiceProfile : Profile
@@ -16,6 +17,9 @@
             //Users
 
             this.CreateMap<User, UserProfileServiceModel>();
+
+            //Torrents
+            this.CreateMap<EditTorrentFormServiceModel, Torrent>();
         }
     }
 }

@@ -11,6 +11,7 @@
     {
          ICollection<string> GetCategoriesNameModel();
         string GetCategoryIdByName(string categoryName);
+        string GetCategoryNameById(string categoryId);
 
        IEnumerable<CategoryDropDownServiceModel> GetCategoriesForDropDown();
             

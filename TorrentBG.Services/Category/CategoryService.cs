@@ -34,8 +34,12 @@
         }
 
         public string GetCategoryIdByName(string categoryName) => this.data.Categories.Where(x => x.Name == categoryName).Select(x=>x.Id).Single();
-        
-           
-        
+
+        public string GetCategoryNameById(string categoryId)
+        {
+            var category =this.data.Categories.Where(x => x.Id == categoryId).FirstOrDefault();
+
+            return category.Name;
+        }
     }
 }

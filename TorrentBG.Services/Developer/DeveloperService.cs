@@ -32,5 +32,15 @@
             }
             return new DeveloperServiceModel {Id=result.Id, Name=result.FullName };
         }
+
+        public string GetDeveloperName(string id)
+        {
+            var developer = this.data.Developers.Where(x => x.Id == id).FirstOrDefault();
+
+            return developer.FullName;
+
+        }
+            
+        
     }
 }

@@ -156,5 +156,99 @@
             this.data.Torrents.Add(torrent);
             this.data.SaveChanges();
         }
+
+        public EditTorrentFormServiceModel GetEditModelForView(string torrentId)
+        {
+            var torrent = this.data.Torrents
+                .Include(x=>x.Genre)
+                .Include(x=>x.Category)
+                .Where(x => x.Id == torrentId)
+                .FirstOrDefault();
+
+            if (torrent.Category.Name == "Games")
+            {
+                return IfTorrentIsAGame(torrent);
+            }
+            else
+            {
+                return IfTorrentIsMovieOrSeries(torrent);
+            }
+        }
+
+        public void Edit(EditTorrentFormServiceModel editModel)
+        {
+            var torrent = this.data.Torrents.Where(x => x.Id == editModel.Id).FirstOrDefault();
+
+
+            torrent.Name = editModel.Name;
+            torrent.Description = editModel.Description;
+            torrent.Year = editModel.Year;
+            torrent.GenreId = editModel.GenreId;
+            torrent.CategoryId = editModel.CategoryId;
+
+
+            editModel.CategoryName = this.categoryService.GetCategoryNameById(editModel.CategoryId);
+
+            if (editModel.CategoryName == "Games")
+            {
+                torrent.DeveloperId = this.developerService.GetDeveloper(editModel.DeveloperName).Id;
+                torrent.InstallInstructions = editModel.InstallInstructions;
+                
+            }
+            else 
+            {
+                torrent.DirectorId = this.directorService.GetDirector(editModel.DirectorName).Id;
+                torrent.Length = editModel.Length;
+                torrent.MainActors = editModel.MainActors;
+            }
+
+            this.data.Torrents.Update(torrent);
+            this.data.SaveChanges();
+
+            
+        }
+
+        private EditTorrentFormServiceModel IfTorrentIsAGame(Torrent torrent)
+        {
+            var gameTorrent = new EditTorrentFormServiceModel
+            {
+                Name = torrent.Name,
+                InstallInstructions = torrent.InstallInstructions,
+                Year = torrent.Year,
+                Image = torrent.Image,
+                Description = torrent.Description,
+                DeveloperId = torrent.DeveloperId,
+                DeveloperName = this.developerService.GetDeveloperName(torrent.DeveloperId),
+                CategoryId=torrent.CategoryId,
+                GenreId=torrent.GenreId,
+                GenreName = torrent.Genre.Name,
+                CategoryName = torrent.Category.Name,
+            };
+
+            return gameTorrent;
+        }
+        private EditTorrentFormServiceModel IfTorrentIsMovieOrSeries(Torrent torrent)
+        {
+            var movieTorrent = new EditTorrentFormServiceModel
+            {
+                Name = torrent.Name,
+                MainActors = torrent.MainActors,
+                Length=torrent.Length,
+                Year = torrent.Year,
+                Image = torrent.Image,
+                Description = torrent.Description,
+                DirectorId = torrent.DirectorId,
+                DirectorName = this.directorService.GetDirectorName(torrent.DirectorId),
+                CategoryId = torrent.CategoryId,
+                GenreId = torrent.GenreId,
+                GenreName= torrent.Genre.Name,
+                CategoryName=torrent.Category.Name,
+
+            };
+
+            return movieTorrent;
+        }
+
+       
     }
 }

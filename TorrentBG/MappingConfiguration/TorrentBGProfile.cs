@@ -17,7 +17,10 @@
         {
             //CreateGame
             this.CreateMap<CreateGameFormModel, CreateGameFormServiceModel>();
-            
+
+            //EditTorrent
+            this.CreateMap<EditTorrentFormServiceModel, EditTorrentFormModel>();
+            this.CreateMap<EditTorrentFormServiceModel, EditTorrentFormModel>().ReverseMap();
 
             //CreateMovie
             this.CreateMap<CreateMovieFormModel,CreateMovieFormServiceModel>().ForMember(x => x.Name, y => y.MapFrom(x => x.Name)).ForMember(x => x.GenreId, y => y.MapFrom(x => x.GenreId)).ForMember(x => x.DirectorId, y => y.MapFrom(x => x.DirectorId));

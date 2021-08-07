@@ -17,5 +17,8 @@ namespace TorrentBG.Services.Torrent
         void CreateMovie(CreateMovieFormServiceModel movieModel);
         void CreateSeries(CreateSeriesFormServiceModel seriesModel);
 
+        EditTorrentFormServiceModel GetEditModelForView(string torrentId);
+        void Edit(EditTorrentFormServiceModel editModel);
+
     }
 }
