@@ -1,0 +1,26 @@
+﻿@{ 
+    ViewData["Title"] = "TorrentBG || Developer Torrents";
+}
+@model DeveloperViewModel
+
+<section id="services" class="services section-bg">
+    <h1 style="text-align:center">@Model.Name torrents</h1>
+
+    <div class="row">
+        @foreach (var t in Model.Torrents)
+        {
+            <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+                <div class="icon-box iconbox-blue">
+                    <div class="torrent-img">
+                        <img src="@t.Image" alt="@t.Name Photo">
+                    </div>
+                    <h4><a asp-controller="Torrents" asp-action="Torrent" asp-route-Id="@t.Id">@t.Name</a></h4>
+                    <p>@t.Description</p>
+                </div>
+            </div>
+        }
+
+
+    </div>
+    }
+</section>

@@ -12,6 +12,8 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.EntityFrameworkCore;
     using TorrentBG.Services.Torrent;
+    using System.Threading.Tasks;
+    using System.IO;
 
     [Authorize]
     public class TorrentsController : Controller
@@ -51,6 +53,25 @@
             torrentModel.Downloads = torrent.Users.Count;
 
             return View(torrentModel);
+        }
+
+        
+        public async Task<IActionResult> Download(string imagePath)
+        {
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", imagePath);
+
+            var memory = new MemoryStream();
+
+            using(var stream=new FileStream(path, FileMode.Open))
+            {
+                await stream.CopyToAsync(memory);
+            }
+            memory.Position = 0;
+
+            var contentType = "application/octet-stream";
+            var fileName = Path.GetFileName(path);
+           
+            return File(memory,contentType,fileName);
         }
 
 

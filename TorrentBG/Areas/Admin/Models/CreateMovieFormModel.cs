@@ -11,6 +11,7 @@
     using TorrentBG.Models.CreateTorrents;
     using TorrentBG.Services.Category.Models;
     using TorrentBG.Services.Genre.Models;
+    using Microsoft.AspNetCore.Http;
 
     public class CreateMovieFormModel
     {
@@ -19,7 +20,7 @@
          
         public string  Name { get; set; }
 
-        public string  Image { get; set; }
+        //public IFormFile  TorrentImage { get; set; }
 
         [Range(MinTorrentYear,MaxTorrentYear)]
         [RegularExpression("^[0-9]+$", ErrorMessage = "Year must be in numbers only!")]

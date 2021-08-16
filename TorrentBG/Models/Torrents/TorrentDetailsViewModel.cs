@@ -31,5 +31,7 @@
         public string  Developer { get; set; }
 
         public string DeveloperId { get; set; }
+
+        public string  Image { get; set; }
     }
 }

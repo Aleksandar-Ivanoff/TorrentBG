@@ -4,10 +4,14 @@
     using TorrentBG.Areas.Admin.Models;
     using TorrentBG.Data.Models;
     using TorrentBG.Models.CreateTorrents;
+    using TorrentBG.Models.Developer;
+    using TorrentBG.Models.Director;
     using TorrentBG.Models.Home;
     using TorrentBG.Models.Torrents;
     using TorrentBG.Models.UserProfile;
     using TorrentBG.Services.City.Models;
+    using TorrentBG.Services.Developer.Models;
+    using TorrentBG.Services.Director.Models;
     using TorrentBG.Services.Torrent.Models;
     using TorrentBG.Services.User.Models;
 
@@ -59,6 +63,13 @@
 
             //HomeTorrents
             this.CreateMap<NewestTorrentsServiceModel, NewestTorrentsViewModel>();
+
+
+            //Director
+            this.CreateMap<DirectorServiceModel, DirectorViewModel>();
+
+            //Developer
+            this.CreateMap<DeveloperServiceModel, DeveloperViewModel>();
         }
         
     }

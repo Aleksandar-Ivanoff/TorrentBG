@@ -37,7 +37,7 @@
             @Model.Description
         </p>
         <h4>Downloads(@Model.Downloads)</h4>
-        <button>Download</button>
+        <a asp-controller="Torrents" asp-action="Download" asp-route-torrentName="@Model.Name" asp-route-imagePath="@Model.Image"><button>Download</button></a>
         <hr style="width: 50%;">
     </div>
 </section>

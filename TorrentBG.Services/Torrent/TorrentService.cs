@@ -249,6 +249,34 @@
             return movieTorrent;
         }
 
-       
+        public IEnumerable<TorrentListServiceModel> GetTorrentsByDirector(string directorId)
+        {
+            var torrents = this.data.Torrents.Include(i => i.Director)
+                .Where(t => t.Director.Id == directorId)
+                .Select(t => new TorrentListServiceModel
+                {
+                    Id= t.Id,
+                    Description=t.Description,
+                    Image=t.Image,
+                    Name=t.Name,
+                }).ToList();
+
+            return torrents;
+        }
+
+        public IEnumerable<TorrentListServiceModel> GetTorrentsByDeveloper(string developerId)
+        {
+            var torrents = this.data.Torrents.Include(i => i.Developer)
+                .Where(d => d.Developer.Id == developerId)
+                .Select(t => new TorrentListServiceModel
+                {
+                    Id = t.Id,
+                    Description = t.Description,
+                    Image = t.Image,
+                    Name = t.Name,
+                }).ToList();
+
+            return torrents;
+        }
     }
 }

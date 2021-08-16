@@ -1,11 +1,13 @@
 ﻿namespace TorrentBG.Areas.Admin.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.IO;
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using System.Collections.Generic;
-    using System.Linq;
     using TorrentBG.Areas.Admin.Models;
     using TorrentBG.Data;
     using TorrentBG.Data.Models;
@@ -18,7 +20,8 @@
     using TorrentBG.Services.Torrent.Models;
 
     [Area(AdminConstants.AreaName)]
-    [Authorize(Roles = AdminConstants.AdministratorRoleName)]
+    [Authorize(Roles =AdminConstants.AdministratorRoleName)]
+   
     public class AdministratorController : Controller
     {
         private readonly IMapper mapper;
@@ -40,10 +43,10 @@
             this.torrentService = torrentService;
         }
 
-        public IActionResult Index() => View();
-       
+      
         public IActionResult CreateMovie() => View(new CreateMovieFormModel { Categories=this.categoryService.GetCategoriesForDropDown(), Genres=this.genreService.GetGenresForDropDown()});
-        
+
+      
         [HttpPost]
         public IActionResult CreateMovie(CreateMovieFormModel movieFormModel)
         {
@@ -61,6 +64,7 @@
             return RedirectToAction("All", "Torrents",new {area=""});
         }
 
+      
         public IActionResult CreateGame() => View(new CreateGameFormModel {Genres=this.genreService.GetGenresForDropDown(),Categories=this.categoryService.GetCategoriesForDropDown()});
 
         
@@ -81,9 +85,9 @@
           return RedirectToAction("All","Torrents",new {area = "" });
         }
 
-        
         public IActionResult CreateSeries() => View(new CreateSeriesFormModel {Categories=this.categoryService.GetCategoriesForDropDown(),Genres=this.genreService.GetGenresForDropDown()});
-
+        
+ 
         [HttpPost]
         public IActionResult CreateSeries(CreateSeriesFormModel seriesModel)
         {
@@ -115,6 +119,7 @@
             return View(modelToSend);
         }
 
+        
         [HttpPost]
         public IActionResult Edit(EditTorrentFormModel editModel)
         {
@@ -123,12 +128,15 @@
             return RedirectToAction("All","Torrents",new {area="" });
         }
 
+    
         [HttpPost]
         public IActionResult Delete(string Id)
         {
             //TODO
             return View();
         }
+
+       
 
     }
 }

@@ -9,6 +9,9 @@ namespace TorrentBG.Services.Torrent
     public interface ITorrentService
     {
         AllTorrentServiceModel All(string searchTerm, string genre, string category,int currentPage,int torrentsPerPage);
+        EditTorrentFormServiceModel GetEditModelForView(string torrentId);
+        IEnumerable<TorrentListServiceModel> GetTorrentsByDirector(string directorId);
+        IEnumerable<TorrentListServiceModel> GetTorrentsByDeveloper(string developerId);
         IQueryable<NewestTorrentsServiceModel> GetNewestTorrents();
         Data.Models.Torrent GetTorrentById(string torrentId);
 
@@ -16,9 +19,10 @@ namespace TorrentBG.Services.Torrent
         void CreateGame(CreateGameFormServiceModel gameModel);
         void CreateMovie(CreateMovieFormServiceModel movieModel);
         void CreateSeries(CreateSeriesFormServiceModel seriesModel);
-
-        EditTorrentFormServiceModel GetEditModelForView(string torrentId);
         void Edit(EditTorrentFormServiceModel editModel);
+
+        
+       
 
     }
 }

@@ -2,6 +2,15 @@
 {
     public class DataConstants
     {
+        public class Contact 
+        {
+            public const int MinNameLength = 4;
+            public const int MaxNameLength = 20;
+
+            public const int MaxMessageLength = 100;
+
+            public const string EmailAddress = "torrentbginfo@gmail.com";
+        }
 
         public class Torrent
         {
