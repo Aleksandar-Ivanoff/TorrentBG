@@ -63,7 +63,7 @@
 
         public class Developer
         {
-            public const int MinDeveloperLength = 3;
+            public const int MinDeveloperLength = 2;
             public const int MaxDeveloperLength = 30;
         }
 

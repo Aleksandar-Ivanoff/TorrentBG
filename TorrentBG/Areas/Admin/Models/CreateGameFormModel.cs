@@ -13,6 +13,7 @@
     using TorrentBG.Models.CreateTorrents;
     using TorrentBG.Services.Genre.Models;
     using TorrentBG.Services.Category.Models;
+    using Microsoft.AspNetCore.Http;
 
     public class CreateGameFormModel
     {
@@ -22,7 +23,7 @@
         public string Name { get; init; }
 
         
-        public string Image { get; init; }
+        public IFormFile Image { get; init; }
 
         [Range(MinTorrentYear, MaxTorrentYear)]
         [RegularExpression("^[0-9]+$",ErrorMessage ="Year must be in numbers only!")]
@@ -46,7 +47,7 @@
 
         [Required(ErrorMessage = "Please enter  the Developer Name.")]
         [StringLength(MaxDeveloperLength, MinimumLength = MinDeveloperLength)]
-        [RegularExpression("[A-z ]+$", ErrorMessage = "Developer name must be  with letters only!")]
+        [RegularExpression("^[a-zA-Z0-9_.-]*$", ErrorMessage = "Developer name must be  with letters only!")]
         [Ignore]
         public string DeveloperName { get; init; }
 

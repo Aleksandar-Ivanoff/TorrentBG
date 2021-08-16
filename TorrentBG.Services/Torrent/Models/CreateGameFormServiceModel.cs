@@ -1,5 +1,7 @@
 ﻿namespace TorrentBG.Services.Torrent.Models
 {
+    using AutoMapper.Configuration.Annotations;
+    using Microsoft.AspNetCore.Http;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -10,7 +12,7 @@
     {
         public string Name { get; init; }
 
-        public string Image { get; init; }
+        public IFormFile Image { get; init; }
 
         public int Year { get; init; }
 
@@ -24,5 +26,8 @@
         public string InstallInstructions { get; set; }
 
         public string DeveloperId { get; set; }
+
+        [Ignore]
+        public string ImagePath { get; set; }
     }
 }

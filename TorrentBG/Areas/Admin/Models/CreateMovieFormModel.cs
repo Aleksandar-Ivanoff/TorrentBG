@@ -20,7 +20,7 @@
          
         public string  Name { get; set; }
 
-        //public IFormFile  TorrentImage { get; set; }
+        public IFormFile  Image { get; set; }
 
         [Range(MinTorrentYear,MaxTorrentYear)]
         [RegularExpression("^[0-9]+$", ErrorMessage = "Year must be in numbers only!")]
@@ -34,7 +34,7 @@
 
         [Required(ErrorMessage = "Please enter Director name.")]
         [StringLength(MaxDirectorLength, MinimumLength = MinDirectorLength)]
-        [RegularExpression("[A-z ]+$", ErrorMessage = "Director name must be  with letters only!")]
+        [RegularExpression("^[a-zA-Z0-9_.-]*$", ErrorMessage = "Director name must be  with letters only!")]
         [Ignore]
         public string DirectorName { get; set; }
 

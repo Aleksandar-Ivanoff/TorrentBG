@@ -12,6 +12,7 @@
     using TorrentBG.Models.CreateTorrents;
     using TorrentBG.Services.Category.Models;
     using TorrentBG.Services.Genre.Models;
+    using Microsoft.AspNetCore.Http;
 
     public class CreateSeriesFormModel
     {
@@ -20,7 +21,7 @@
         public string Name { get; init; }
 
         
-        public string Image { get; init; }
+        public IFormFile Image { get; init; }
 
         [Range(MinTorrentYear, MaxTorrentYear)]
         [RegularExpression("^[0-9]+$", ErrorMessage = "Year must be in numbers only!")]
@@ -34,7 +35,7 @@
 
         [Required(ErrorMessage = "Please enter Director name.")]
         [StringLength(MaxDirectorLength, MinimumLength = MinDirectorLength)]
-        [RegularExpression("[A-z ]+$", ErrorMessage = "Director name must be only with letters only!")]
+        [RegularExpression("^[a-zA-Z0-9_.-]*$", ErrorMessage = "Director name must be  with letters only!")]
         public string DirectorName { get; init; }
 
         public string DirectorId { get; set; }

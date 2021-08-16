@@ -18,21 +18,27 @@
     using TorrentBG.Services.Genre;
     using TorrentBG.Services.Torrent;
     using TorrentBG.Services.Torrent.Models;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Hosting;
 
     [Area(AdminConstants.AreaName)]
     [Authorize(Roles =AdminConstants.AdministratorRoleName)]
    
     public class AdministratorController : Controller
     {
-        private readonly IMapper mapper;
         private readonly ApplicationDbContext data;
+        private readonly IWebHostEnvironment webHostEnvironment;
+        private readonly IMapper mapper;
         private readonly ICategoryService categoryService;
         private readonly IGenreService genreService;
         private readonly IDeveloperService developerService;
         private readonly IDirectorService directorService;
         private readonly ITorrentService torrentService;
 
-        public AdministratorController(IMapper mapper,ApplicationDbContext dbContext, ICategoryService categoryService, IGenreService genreService, IDeveloperService developerService,IDirectorService directorService, ITorrentService torrentService)
+        public AdministratorController(IMapper mapper,ApplicationDbContext dbContext, ICategoryService categoryService,
+            IGenreService genreService, IDeveloperService developerService,IDirectorService directorService,
+            ITorrentService torrentService,IWebHostEnvironment webHostEnvironment)
+            
         {
             this.data = dbContext;
             this.mapper = mapper;
@@ -41,6 +47,7 @@
             this.developerService = developerService;
             this.directorService = directorService;
             this.torrentService = torrentService;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
       
@@ -59,6 +66,8 @@
             }
 
             var movie =this.mapper.Map<CreateMovieFormServiceModel>(movieFormModel);
+
+            movie.ImagePath = ConvertImageFile(movieFormModel.Image);
             this.torrentService.CreateMovie(movie);
 
             return RedirectToAction("All", "Torrents",new {area=""});
@@ -77,10 +86,12 @@
                 gameModel.Genres = this.genreService.GetGenresForDropDown();
                 return View(gameModel);
             }
+            string filePath = ConvertImageFile(gameModel.Image);
 
-          var game = this.mapper.Map<CreateGameFormServiceModel>(gameModel);
+            var game = this.mapper.Map<CreateGameFormServiceModel>(gameModel);
+            game.ImagePath = filePath;
 
-          this.torrentService.CreateGame(game);
+            this.torrentService.CreateGame(game);
 
           return RedirectToAction("All","Torrents",new {area = "" });
         }
@@ -99,6 +110,8 @@
             }
 
              var series= this.mapper.Map<CreateSeriesFormServiceModel>(seriesModel);
+
+            series.ImagePath = ConvertImageFile(seriesModel.Image);
 
             this.torrentService.CreateSeries(series);
 
@@ -134,6 +147,15 @@
         {
             //TODO
             return View();
+        }
+
+
+        private string ConvertImageFile(IFormFile formFile)
+        {
+            string dir = Path.Combine(webHostEnvironment.WebRootPath, "img");
+
+            string filePath = Path.Combine(dir, formFile.FileName);
+            return formFile.FileName;
         }
 
        

@@ -14,6 +14,8 @@
     using Microsoft.EntityFrameworkCore;
     using TorrentBG.Services.Developer;
     using TorrentBG.Services.Director;
+    using Microsoft.AspNetCore.Http;
+    using System.IO;
 
     public class TorrentService : ITorrentService
     {
@@ -71,32 +73,25 @@
                 CurrentPage=currentPage,
             };
         }
-        private static IEnumerable<TorrentListServiceModel> GetTorrents(IQueryable<Torrent> torrentQuery)
+
+        public Torrent GetTorrentById(string torrentId)
         {
-            var torrents = torrentQuery
-                .Select(x => new TorrentListServiceModel
-                {
-                    Description = x.Description,
-                    Id = x.Id,
-                    Image = x.Image,
-                    Name = x.Name,
-                    
-                }).ToList();
+          var torrent = this.data.Torrents.Include(x => x.Category).Include(x => x.Developer).Include(x => x.Director).FirstOrDefault(x => x.Id == torrentId);
 
-            
-            return torrents;
+          torrent.Image = GetImagePathToShow(torrent.Image);
+
+            return torrent;
         }
-
-        public Torrent GetTorrentById(string torrentId) => this.data.Torrents.Include(x => x.Category).Include(x => x.Developer).Include(x => x.Director).FirstOrDefault(x => x.Id == torrentId);
 
         public IQueryable<NewestTorrentsServiceModel> GetNewestTorrents()
         {
-             return this.data.Torrents.OrderByDescending(x => x.Id).Select(x=> new NewestTorrentsServiceModel
+            return this.data.Torrents.OrderByDescending(x => x.Id).Select(x => new NewestTorrentsServiceModel
             {
-                Id=x.Id,
-                Description=x.Description,
-                Name=x.Name,
-            });
+                Id = x.Id,
+                Description = x.Description,
+                Name = x.Name,
+                Image = GetImagePathToShow(x.Image)
+            }).Take(3); 
         }
 
         public void CreateGame(CreateGameFormServiceModel gameModel)
@@ -110,7 +105,7 @@
                 GenreId=gameModel.GenreId,
                 Description=gameModel.Description,
                 Year=gameModel.Year,
-                Image=gameModel.Image,
+                Image=gameModel.ImagePath,
 
             };
 
@@ -129,7 +124,7 @@
                 GenreId = movieModel.GenreId,
                 Description = movieModel.Description,
                 Year = movieModel.Year,
-                Image = movieModel.Image,
+                Image = movieModel.ImagePath,
                 Length=movieModel.Length
 
             };
@@ -148,7 +143,7 @@
                 GenreId = seriesModel.GenreId,
                 Description = seriesModel.Description,
                 Year = seriesModel.Year,
-                Image = seriesModel.Image,
+                Image = seriesModel.ImagePath,
                 Length = seriesModel.Length
 
             };
@@ -208,46 +203,7 @@
             
         }
 
-        private EditTorrentFormServiceModel IfTorrentIsAGame(Torrent torrent)
-        {
-            var gameTorrent = new EditTorrentFormServiceModel
-            {
-                Name = torrent.Name,
-                InstallInstructions = torrent.InstallInstructions,
-                Year = torrent.Year,
-                Image = torrent.Image,
-                Description = torrent.Description,
-                DeveloperId = torrent.DeveloperId,
-                DeveloperName = this.developerService.GetDeveloperName(torrent.DeveloperId),
-                CategoryId=torrent.CategoryId,
-                GenreId=torrent.GenreId,
-                GenreName = torrent.Genre.Name,
-                CategoryName = torrent.Category.Name,
-            };
-
-            return gameTorrent;
-        }
-        private EditTorrentFormServiceModel IfTorrentIsMovieOrSeries(Torrent torrent)
-        {
-            var movieTorrent = new EditTorrentFormServiceModel
-            {
-                Name = torrent.Name,
-                MainActors = torrent.MainActors,
-                Length=torrent.Length,
-                Year = torrent.Year,
-                Image = torrent.Image,
-                Description = torrent.Description,
-                DirectorId = torrent.DirectorId,
-                DirectorName = this.directorService.GetDirectorName(torrent.DirectorId),
-                CategoryId = torrent.CategoryId,
-                GenreId = torrent.GenreId,
-                GenreName= torrent.Genre.Name,
-                CategoryName=torrent.Category.Name,
-
-            };
-
-            return movieTorrent;
-        }
+        
 
         public IEnumerable<TorrentListServiceModel> GetTorrentsByDirector(string directorId)
         {
@@ -278,5 +234,76 @@
 
             return torrents;
         }
+
+
+
+       
+        private EditTorrentFormServiceModel IfTorrentIsAGame(Torrent torrent)
+        {
+            var gameTorrent = new EditTorrentFormServiceModel
+            {
+                Name = torrent.Name,
+                InstallInstructions = torrent.InstallInstructions,
+                Year = torrent.Year,
+                Image = torrent.Image,
+                Description = torrent.Description,
+                DeveloperId = torrent.DeveloperId,
+                DeveloperName = this.developerService.GetDeveloperName(torrent.DeveloperId),
+                CategoryId = torrent.CategoryId,
+                GenreId = torrent.GenreId,
+                GenreName = torrent.Genre.Name,
+                CategoryName = torrent.Category.Name,
+            };
+
+            return gameTorrent;
+        }
+        private EditTorrentFormServiceModel IfTorrentIsMovieOrSeries(Torrent torrent)
+        {
+            var movieTorrent = new EditTorrentFormServiceModel
+            {
+                Name = torrent.Name,
+                MainActors = torrent.MainActors,
+                Length = torrent.Length,
+                Year = torrent.Year,
+                Image = torrent.Image,
+                Description = torrent.Description,
+                DirectorId = torrent.DirectorId,
+                DirectorName = this.directorService.GetDirectorName(torrent.DirectorId),
+                CategoryId = torrent.CategoryId,
+                GenreId = torrent.GenreId,
+                GenreName = torrent.Genre.Name,
+                CategoryName = torrent.Category.Name,
+
+            };
+
+            return movieTorrent;
+        }
+
+        private static IEnumerable<TorrentListServiceModel> GetTorrents(IQueryable<Torrent> torrentQuery)
+        {
+            var torrents = torrentQuery
+                .Select(x => new TorrentListServiceModel
+                {
+                    Description = x.Description,
+                    Id = x.Id,
+                    Image = GetImagePathToShow(x.Image),
+                    Name = x.Name,
+
+                }).ToList();
+
+
+            return torrents;
+        }
+
+        private static string GetImagePathToShow(string image)
+        {
+            var filePath = Path.GetFileName(image);
+
+            return filePath;
+        }
+
+
+
+
     }
 }
