@@ -26,7 +26,7 @@
             //SeedCities(data);
             //SeedCategories(data);
             //SeedGenres(data);
-            SeedAdministrator(serviceProvider);
+            //SeedAdministrator(serviceProvider);
 
             return app;  
           
@@ -34,6 +34,7 @@
 
         private static void SeedCities(ApplicationDbContext db)
         {
+            
             db.Cities.AddRange(new[] {
 
                 new City{Name = "Stara Zagora"},

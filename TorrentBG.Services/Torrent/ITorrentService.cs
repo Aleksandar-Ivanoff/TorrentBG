@@ -13,13 +13,15 @@ namespace TorrentBG.Services.Torrent
         IEnumerable<TorrentListServiceModel> GetTorrentsByDirector(string directorId);
         IEnumerable<TorrentListServiceModel> GetTorrentsByDeveloper(string developerId);
         IQueryable<NewestTorrentsServiceModel> GetNewestTorrents();
-        Data.Models.Torrent GetTorrentById(string torrentId);
+        TorrentServiceModel GetTorrentById(string torrentId);
 
 
         void CreateGame(CreateGameFormServiceModel gameModel);
         void CreateMovie(CreateMovieFormServiceModel movieModel);
         void CreateSeries(CreateSeriesFormServiceModel seriesModel);
         void Edit(EditTorrentFormServiceModel editModel);
+        void DeleteTorrent(string torrentId);
+        void AddUserToTorrent(string userId,string torrentName);
 
         
        

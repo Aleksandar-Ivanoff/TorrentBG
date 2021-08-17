@@ -126,6 +126,7 @@
 
             var modelToSend = this.mapper.Map<EditTorrentFormModel>(editModel);
 
+            modelToSend.ImagePath = editModel.ImagePath;
             modelToSend.Categories = this.categoryService.GetCategoriesForDropDown();
             modelToSend.Genres = this.genreService.GetGenresForDropDown();
 
@@ -136,29 +137,41 @@
         [HttpPost]
         public IActionResult Edit(EditTorrentFormModel editModel)
         {
+            
             var mapped=this.mapper.Map<EditTorrentFormServiceModel>(editModel);
+
+            mapped.ImagePath= ConvertImageFile(editModel.Image);
             this.torrentService.Edit(mapped);
+
             return RedirectToAction("All","Torrents",new {area="" });
         }
 
     
-        [HttpPost]
+       
         public IActionResult Delete(string Id)
         {
-            //TODO
-            return View();
+
+            this.torrentService.DeleteTorrent(Id);
+
+            return RedirectToAction("All","Torrents",new {area = ""});
         }
 
 
         private string ConvertImageFile(IFormFile formFile)
         {
-            string dir = Path.Combine(webHostEnvironment.WebRootPath, "img");
+            try
+            {
+                string dir = Path.Combine(webHostEnvironment.WebRootPath, "img");
 
-            string filePath = Path.Combine(dir, formFile.FileName);
-            return formFile.FileName;
+                string filePath = Path.Combine(dir, formFile.FileName);
+                return formFile.FileName;
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+           
         }
-
-       
-
     }
 }

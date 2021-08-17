@@ -69,7 +69,7 @@
 
         public class Director
         {
-            public const int MinDirectorLength = 8;
+            public const int MinDirectorLength = 5;
             public const int MaxDirectorLength = 30;
         }
        

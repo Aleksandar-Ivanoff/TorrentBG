@@ -44,9 +44,14 @@
 
             //Torrents
             this.CreateMap<Torrent, TorrentListingViewModel>();
-            this.CreateMap<Torrent, TorrentDetailsViewModel>()
-                .ForMember(x=>x.Developer,y=>y.MapFrom(y=>y.Developer.FullName))
-                .ForMember(x=>x.Director,y=>y.MapFrom(y=>y.Director.FullName));
+
+            this.CreateMap<TorrentServiceModel, TorrentDetailsViewModel>()
+                .ForMember(x => x.DirectorName, y => y.MapFrom(x => x.DirectorName))
+                .ForMember(x => x.DeveloperName, y => y.MapFrom(x => x.DeveloperName))
+                .ForMember(x => x.CategoryName, y => y.MapFrom(x => x.CategoryName))
+                .ForMember(x => x.CategoryName, y => y.MapFrom(x => x.CategoryName));
+                
+          
 
             this.CreateMap<AllTorrentServiceModel, AllTorrentsQueryModel>();
 

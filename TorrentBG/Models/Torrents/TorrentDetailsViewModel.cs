@@ -23,15 +23,16 @@
 
         public string  Length { get; set; }
 
-        public string  Director { get; set; }
+        public string  DirectorName { get; set; }
 
         public string CategoryName { get; set; }
         public string DirectorId { get; set; }
 
-        public string  Developer { get; set; }
+        public string  DeveloperName { get; set; }
 
         public string DeveloperId { get; set; }
 
         public string  Image { get; set; }
+
     }
 }

@@ -18,6 +18,6 @@
 
         public string Image { get; set; }
 
-        public ICollection<Torrent> Torrents { get; set; } = new HashSet<Torrent>();
+        public ICollection<TorrentUser> Torrents { get; set; } = new HashSet<TorrentUser>();
     }
 }

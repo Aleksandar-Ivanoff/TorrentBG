@@ -1,5 +1,6 @@
 ﻿namespace TorrentBG.Services.Torrent.Models
 {
+    using Microsoft.AspNetCore.Http;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -34,7 +35,8 @@
         public string DeveloperName { get; set; }
 
         public int? Length { get; set; }
-        public string  Image { get; set; }
+        public IFormFile  Image { get; set; }
+        public string ImagePath { get; set; }
 
 
     }

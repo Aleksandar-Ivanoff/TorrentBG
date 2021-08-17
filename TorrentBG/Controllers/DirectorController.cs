@@ -28,7 +28,7 @@
 
             var director = this.mapper.Map<DirectorViewModel>(directorServiceModel);
 
-            director.Torrents = this.torrentService.GetTorrentsByDirector(Id);
+            director.Torrents = this.torrentService.GetTorrentsByDirector(directorServiceModel.Id);
 
             
             return View(director);

@@ -12,28 +12,30 @@
     <div class="movie-desc" style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%;">
         <h4>Release Date</h4>
         <h5 style="font-style: italic; letter-spacing: 1px;">@Model.ReleaseDate</h5>
-        <h4>Lenght(min)</h4>
-        <h5 style="font-style: italic; letter-spacing: 1px;">@Model.Length</h5>
+
 
         @if (Model.CategoryName == "Games")
         {
             <h4>Developer</h4>
-            <a asp-controller="Developer" asp-action="Torrents" asp-route-Id="@Model.DeveloperId"><h5 style="font-style: italic; letter-spacing: 1px;">@Model.Developer</h5></a>
-            
+            <a asp-controller="Developer" asp-action="Torrents" asp-route-Id="@Model.DeveloperId"><h5 style="font-style: italic; letter-spacing: 1px;">@Model.DeveloperName</h5></a>
+
             <h4>Install Instructions</h4>
             <p style="width: 45%; text-align: center; font-style: italic;">@Model.InstallInstructions</p>
         }
         else
         {
+            <h4>Length(min)</h4>
+            <h5 style="font-style: italic; letter-spacing: 1px;">@Model.Length</h5>
+
             <h4>Director</h4>
-            <a asp-controller="Director" asp-action="Torrents" asp-route-Id="@Model.DirectorId"><h5 style="font-style: italic; letter-spacing: 1px;">@Model.Director</h5></a>
-            
+            <a asp-controller="Director" asp-action="Torrents" asp-route-Id="@Model.DirectorId"><h5 style="font-style: italic; letter-spacing: 1px;">@Model.DirectorName</h5></a>
+
             <h4>Main Actors</h4>
             <p style="width: 45%; text-align: center; font-style: italic;">@Model.MainActors</p>
         }
 
         <h4>Description</h4>
-        <p style="width: 45%; text-align: center; font-style: italic;" >
+        <p style="width: 45%; text-align: center; font-style: italic;">
             @Model.Description
         </p>
         <h4>Downloads(@Model.Downloads)</h4>

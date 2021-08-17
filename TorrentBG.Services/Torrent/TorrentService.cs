@@ -74,11 +74,28 @@
             };
         }
 
-        public Torrent GetTorrentById(string torrentId)
+        public TorrentServiceModel GetTorrentById(string torrentId)
         {
-          var torrent = this.data.Torrents.Include(x => x.Category).Include(x => x.Developer).Include(x => x.Director).FirstOrDefault(x => x.Id == torrentId);
-
-          torrent.Image = GetImagePathToShow(torrent.Image);
+            var torrent = this.data.Torrents.Where(x=>x.Id == torrentId).Include(x => x.Category).Include(x => x.Developer).Include(x => x.Director).Include(x=>x.Users)
+                .Select(x => new TorrentServiceModel
+            {
+                Name = x.Name,
+                Downloads = x.Users.Count(),
+                Description=x.Description,
+                Image=GetImagePathToShow(x.Image),
+                CategoryId=x.CategoryId,
+                GenreId=x.GenreId,
+                DirectorId=x.DirectorId,
+                DeveloperId=x.DeveloperId,
+                MainActors=x.MainActors,
+                Length=x.Length,
+                ReleaseDate=x.Year,
+                InstallInstructions=x.InstallInstructions,
+                DeveloperName=x.Developer.FullName,
+                DirectorName=x.Director.FullName,
+                CategoryName=x.Category.Name,
+            }).FirstOrDefault();
+  
 
             return torrent;
         }
@@ -180,6 +197,7 @@
             torrent.Year = editModel.Year;
             torrent.GenreId = editModel.GenreId;
             torrent.CategoryId = editModel.CategoryId;
+            torrent.Image = editModel.ImagePath;
 
 
             editModel.CategoryName = this.categoryService.GetCategoryNameById(editModel.CategoryId);
@@ -203,8 +221,6 @@
             
         }
 
-        
-
         public IEnumerable<TorrentListServiceModel> GetTorrentsByDirector(string directorId)
         {
             var torrents = this.data.Torrents.Include(i => i.Director)
@@ -213,7 +229,7 @@
                 {
                     Id= t.Id,
                     Description=t.Description,
-                    Image=t.Image,
+                    Image=GetImagePathToShow(t.Image),
                     Name=t.Name,
                 }).ToList();
 
@@ -228,16 +244,22 @@
                 {
                     Id = t.Id,
                     Description = t.Description,
-                    Image = t.Image,
+                    Image = GetImagePathToShow(t.Image),
                     Name = t.Name,
                 }).ToList();
 
             return torrents;
         }
+        public void DeleteTorrent(string torrentId)
+        {
+            var torrent = this.data.Torrents.Where(t => t.Id == torrentId).FirstOrDefault();
+
+            this.data.Torrents.Remove(torrent);
+            this.data.SaveChanges();
+        }
 
 
 
-       
         private EditTorrentFormServiceModel IfTorrentIsAGame(Torrent torrent)
         {
             var gameTorrent = new EditTorrentFormServiceModel
@@ -245,7 +267,7 @@
                 Name = torrent.Name,
                 InstallInstructions = torrent.InstallInstructions,
                 Year = torrent.Year,
-                Image = torrent.Image,
+                ImagePath = GetImagePathToShow(torrent.Image),
                 Description = torrent.Description,
                 DeveloperId = torrent.DeveloperId,
                 DeveloperName = this.developerService.GetDeveloperName(torrent.DeveloperId),
@@ -265,7 +287,7 @@
                 MainActors = torrent.MainActors,
                 Length = torrent.Length,
                 Year = torrent.Year,
-                Image = torrent.Image,
+                ImagePath = GetImagePathToShow(torrent.Image),
                 Description = torrent.Description,
                 DirectorId = torrent.DirectorId,
                 DirectorName = this.directorService.GetDirectorName(torrent.DirectorId),
@@ -297,13 +319,24 @@
 
         private static string GetImagePathToShow(string image)
         {
+            if (image is null)
+            {
+                return "noImage.jpg";
+            }
             var filePath = Path.GetFileName(image);
 
             return filePath;
         }
 
+        public void AddUserToTorrent(string userId,string torrentName)
+        {
+            var user = this.data.Users.Where(x => x.Id == userId).FirstOrDefault();
 
+            var torrent = this.data.Torrents.Where(x => x.Name == torrentName).FirstOrDefault();
+            var map = new TorrentUser { TorrentId = torrent.Id, UserId = user.Id };
 
-
+            this.data.TorrentUser.Add(map);
+            this.data.SaveChanges();
+        }
     }
 }

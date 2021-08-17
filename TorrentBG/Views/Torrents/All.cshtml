@@ -52,7 +52,7 @@
                         {
                             <li class="page-item"><a class="page-link" asp-action="All" asp-route-CurrentPage="@(Model.CurrentPage-1)" asp-route-Category="@Model.Category" asp-route-Genre="@Model.Genre">Previous</a></li>
                         }
-                        @if (Model.CurrentPage == totalPages)
+                        @if (Model.CurrentPage >= totalPages)
                         {
                             <li class="page-item disabled"><a class="page-link" asp-action="All" asp-route-CurrentPage="@(Model.CurrentPage)">Next</a></li>
                         }

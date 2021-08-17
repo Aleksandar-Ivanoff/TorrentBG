@@ -47,7 +47,7 @@
 
         [Required(ErrorMessage = "Please enter  the Developer Name.")]
         [StringLength(MaxDeveloperLength, MinimumLength = MinDeveloperLength)]
-        [RegularExpression("^[a-zA-Z0-9_.-]*$", ErrorMessage = "Developer name must be  with letters only!")]
+        [RegularExpression(@"^[a-zA-Z\s]*$", ErrorMessage = "Developer name must be  with letters only!")]
         [Ignore]
         public string DeveloperName { get; init; }
 

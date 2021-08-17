@@ -14,6 +14,7 @@
     using TorrentBG.Services.Torrent;
     using System.Threading.Tasks;
     using System.IO;
+    using System.Security.Claims;
 
     [Authorize]
     public class TorrentsController : Controller
@@ -50,14 +51,16 @@
                 
             var torrentModel = this.mapper.Map<TorrentDetailsViewModel>(torrent);
 
-            torrentModel.Downloads = torrent.Users.Count;
-
             return View(torrentModel);
         }
 
         
-        public async Task<IActionResult> Download(string imagePath)
+        public async Task<IActionResult> Download(string imagePath,string torrentName)
         {
+            var user= this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            this.torrentService.AddUserToTorrent(user, torrentName);
+            imagePath = "img\\" + imagePath;
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", imagePath);
 
             var memory = new MemoryStream();

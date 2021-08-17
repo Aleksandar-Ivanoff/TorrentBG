@@ -34,7 +34,7 @@
 
         [Required(ErrorMessage = "Please enter Director name.")]
         [StringLength(MaxDirectorLength, MinimumLength = MinDirectorLength)]
-        [RegularExpression("^[a-zA-Z0-9_.-]*$", ErrorMessage = "Director name must be  with letters only!")]
+        [RegularExpression(@"^[a-zA-Z\s]*$", ErrorMessage = "Director name must be  with letters only!")]
         [Ignore]
         public string DirectorName { get; set; }
 

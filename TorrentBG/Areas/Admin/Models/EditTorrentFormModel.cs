@@ -13,6 +13,8 @@
     using static TorrentBG.Data.DataConstants.Game;
     using static TorrentBG.Data.DataConstants.Developer;
     using static TorrentBG.Data.DataConstants.Director;
+    using Microsoft.AspNetCore.Http;
+
     public class EditTorrentFormModel
     {
         public string Id { get; set; }
@@ -60,7 +62,9 @@
         [RegularExpression("^[0-9]+$", ErrorMessage = "Length must be in numbers only!")]
         public int? Length { get; set; }
 
+        public string ImagePath { get; set; }
 
+        public IFormFile Image { get; set; }
         public IEnumerable<CategoryDropDownServiceModel> Categories { get; set; }
         public IEnumerable<GenreDropDownServiceModel> Genres { get; set; }
 

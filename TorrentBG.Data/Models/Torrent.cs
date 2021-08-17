@@ -63,7 +63,7 @@
         public string  MainActors { get; set; }
 
 
-        public ICollection<User> Users { get; set; } = new HashSet<User>();
+        public ICollection<TorrentUser> Users { get; set; } = new HashSet<TorrentUser>();
 
     }
 }

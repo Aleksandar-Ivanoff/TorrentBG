@@ -20,6 +20,8 @@
         public DbSet<Director> Directors { get; set; }
         public DbSet<Developer> Developers { get; set; }
 
+        public DbSet<TorrentUser> TorrentUser { get; set; }
+
         
 
         protected override void OnModelCreating(ModelBuilder builder)
