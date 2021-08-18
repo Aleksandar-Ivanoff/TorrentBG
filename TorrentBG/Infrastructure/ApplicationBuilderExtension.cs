@@ -26,7 +26,7 @@
             //SeedCities(data);
             //SeedCategories(data);
             //SeedGenres(data);
-            //SeedAdministrator(serviceProvider);
+            SeedAdministrator(serviceProvider);
 
             return app;  
           

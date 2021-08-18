@@ -15,6 +15,10 @@ namespace TorrentBG.Services.Torrent
         IQueryable<NewestTorrentsServiceModel> GetNewestTorrents();
         TorrentServiceModel GetTorrentById(string torrentId);
 
+        IEnumerable<TorrentListServiceModel> GetGames();
+        IEnumerable<TorrentListServiceModel> GetSeries();
+        IEnumerable<TorrentListServiceModel> GetMovies();
+
 
         void CreateGame(CreateGameFormServiceModel gameModel);
         void CreateMovie(CreateMovieFormServiceModel movieModel);

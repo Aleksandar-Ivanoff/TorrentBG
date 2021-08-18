@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "TorrentBG || Movies";
+
+}
+@model IEnumerable<TorrentListServiceModel>
+<section id="services" class="services section-bg">
+    <div class="container" data-aos="fade-up">
+        <div class="section-title">
+            <h2 style="text-align:center"><span class=".text-primary">★</span>Movies</h2>
+        </div>
+
+        <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0 justify-content-between" data-aos="zoom-in" data-aos-delay="200">
+            @foreach (var torrent in Model)
+            {
+                <div class="icon-box iconbox-orange" style="margin: 20px 50px">
+                    <a asp-controller="Torrents" asp-action="Torrent" asp-route-Id="@torrent.Id">
+                        <div class="torrent-img">
+                            <img src="~/img/@torrent.Image" alt="@torrent.Name">
+                        </div>
+                        <h4><a asp-controller="Torrents" asp-action="Torrent" asp-route-id="@torrent.Id">@torrent.Name</a></h4>
+                        <p>@torrent.Description</p>
+
+                    </a>
+                    @if (this.User.IsAdmin())
+                    {
+                        <a asp-area="Admin" asp-controller="Administrator" asp-action="Edit" asp-route-id="@torrent.Id"><button type="button" class="btn btn-warning">Edit</button></a>
+                        <a asp-area="Admin" asp-controller="Administrator" asp-action="Delete" asp-route-id="@torrent.Id"><button type="button" class="btn btn-danger">Delete</button></a>
+                    }
+                </div>
+            }
+        </div>
+
+
+
+    </div>
+</section><!-- End Sevices Section -->

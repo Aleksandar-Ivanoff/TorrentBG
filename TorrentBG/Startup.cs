@@ -19,6 +19,7 @@ using TorrentBG.Services.Genre;
 using TorrentBG.Services.Torrent;
 using TorrentBG.Services.User;
 
+
 namespace TorrentBG
 {
     public class Startup
@@ -71,6 +72,7 @@ namespace TorrentBG
             services.AddTransient<IDeveloperService, DeveloperService>();
             services.AddTransient<IDirectorService, DirectorService>();
            
+           
 
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -81,16 +83,18 @@ namespace TorrentBG
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (env.IsEnvironment("azure"))
             {
-                app.UseDeveloperExceptionPage();
-                app.UseMigrationsEndPoint();
+
+                app.UseExceptionHandler("/Home/Error");
+                app.UseStatusCodePagesWithRedirects("/Error/OOPS");
+
+                app.UseHsts();
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
-                
-                app.UseHsts();
+                app.UseDeveloperExceptionPage();
+                app.UseMigrationsEndPoint();
             }
 
             app.UseHttpsRedirection();

@@ -1,0 +1,13 @@
+{
+  "Gmail": {
+    "Host": "smtp.gmail.com",
+    "Port": 587,
+    "Username": "torrentbginfo@gmail.com",
+    "Password": "sasho2323",
+    "SMTP": {
+      "starttls": {
+        "enable": true
+      }
+    }
+  }
+}

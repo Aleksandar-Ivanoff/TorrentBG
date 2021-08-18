@@ -6,24 +6,34 @@
 
 <section>
     <div class="section-title">
-        <h1>Catalogs</h1>
+        <h2><span class=".text-primary">★</span>Catalogs</h2>
     </div>
     <div class="wrapper">
 
-        <div class="catalog-box">
-            <div class="catalog-title"><h2>Action</h2></div>
-            <img src="~/img/Johny English Strikes Again.jpg" class="left">
-            <img src="~/img/FasterMovie.jpg" class="right">
+        
+        <div class="catalog-box" >
+            <a asp-controller="Catalogs" asp-action="Movies">
+                <div class="catalog-title"><h2>Movies</h2></div>
+                <img src="~/img/Venom2.jpeg" class="left">
+                <img src="~/img/Johny English Strikes Again.jpg" class="right">
+            </a>
+           
         </div>
         <div class="catalog-box">
-            <div class="catalog-title"><h2>Series</h2></div>
-            <img src="~/img/Johny English Strikes Again.jpg" class="left">
-            <img src="~/img/FasterMovie.jpg" class="right">
+            <a asp-controller="Catalogs" asp-action="Series">
+                <div class="catalog-title"><h2>Series</h2></div>
+                <img src="~/img/Friends.jpg" class="left">
+                <img src="~/img/elite1.jpg" class="right">
+            </a>
+            
         </div>
         <div class="catalog-box">
-            <div class="catalog-title"><h2>Games</h2></div>
-            <img src="~/img/Johny English Strikes Again.jpg" class="left">
-            <img src="~/img/FasterMovie.jpg" class="right">
+            <a asp-controller="Catalogs" asp-action="Games">
+                <div class="catalog-title"><h2>Games</h2></div>
+                <img src="~/img/assassin-s-creed-iii-pc-31.jpg" class="left">
+                <img src="~/img/fifa21.jpg" class="right">
+            </a>
+            
         </div>
 
         

@@ -338,5 +338,41 @@
             this.data.TorrentUser.Add(map);
             this.data.SaveChanges();
         }
+
+        public IEnumerable<TorrentListServiceModel> GetGames()
+        {
+           return this.data.Torrents.Include(x => x.Category).Where(x => x.Category.Name == "Games").Select(x => new TorrentListServiceModel
+            {
+                Name = x.Name,
+                Description = x.Description,
+                Id = x.Id,
+                Image = GetImagePathToShow(x.Image)
+
+            }).ToList();
+        }
+
+        public IEnumerable<TorrentListServiceModel> GetSeries()
+        {
+            return this.data.Torrents.Include(x => x.Category).Where(x => x.Category.Name == "Series").Select(x => new TorrentListServiceModel
+            {
+                Name = x.Name,
+                Description = x.Description,
+                Id = x.Id,
+                Image = GetImagePathToShow(x.Image)
+
+            }).ToList();
+        }
+
+        public IEnumerable<TorrentListServiceModel> GetMovies()
+        {
+            return this.data.Torrents.Include(x => x.Category).Where(x => x.Category.Name == "Movies").Select(x => new TorrentListServiceModel
+            {
+                Name = x.Name,
+                Description = x.Description,
+                Id = x.Id,
+                Image = GetImagePathToShow(x.Image)
+
+            }).ToList();
+        }
     }
 }

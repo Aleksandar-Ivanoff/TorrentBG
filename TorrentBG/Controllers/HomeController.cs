@@ -28,5 +28,5 @@
         public IActionResult Index()         {            if (this.User.IsInRole(AdminConstants.AdministratorRoleName))
             {
                 return RedirectToAction("Index", "Home", new { area = "Admin" });
-            }            var torrents = this.torrentService.GetNewestTorrents().ProjectTo<NewestTorrentsViewModel>(this.mapper.ConfigurationProvider).ToList();            return View(torrents);        }        public IActionResult Error() => View(new ErrorViewModel());    }
+            }            var torrents = this.torrentService.GetNewestTorrents().ProjectTo<NewestTorrentsViewModel>(this.mapper.ConfigurationProvider).ToList();            return View(torrents);        }        public IActionResult Error() => View(new ErrorViewModel());        }
 }

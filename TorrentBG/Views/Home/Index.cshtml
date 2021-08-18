@@ -9,13 +9,13 @@
         <div class="row justify-content-center">
             <div class="col-xl-7 col-lg-9 text-center">
                 <h1>Welcome to TorrentBG</h1>
-                <h2>Here you will find everything you need!</h2>
+                <h2>Here you will find the best torrents!</h2>
             </div>
         </div>
         @if (!this.User.Identity.IsAuthenticated)
         {
             <div class="text-center">
-                <a asp-action="Index" class="btn-get-started scrollto">Get Started</a>
+                <a asp-area="Identity" asp-page="/Account/Register" class="btn-get-started scrollto">Get Started</a>
             </div>
         }
 
