@@ -55,7 +55,7 @@
                         <span class="text-danger" asp-validation-for="Subject"></span>
                     </div>
                     <div class="form-group mt-3">
-                        <textarea class="form-control" asp-for="Message" rows="5" placeholder="Message" required></textarea>
+                        <textarea class="form-control" asp-for="Message" rows="5" placeholder="Message" required id="message"></textarea>
                         <span class="text-danger" asp-validation-for="Message"></span>
                     </div>
 
@@ -65,7 +65,7 @@
                         <div class="error-message"></div>
                         <div class="sent-message">Your message has been sent. Thank you!</div>
                     </div>
-                    <div class="text-center"><button type="submit" class="btn-primary">Send Message</button></div>
+                    <div class="text-center"><button type="submit" class="btn-primary" onclick="ResetFormWithJS()">Send Message</button></div>
                 </form>
 
 
@@ -82,21 +82,13 @@
 @section Scripts{
     <script src="./js/toast.js"></script>
 
-    <script>
-    if (@ViewBag.msg == "Success") {
-
-        Toast.show("Message is sent", "success");
-    }
-    else {
-        Toast.show("Message is not sent.Try again!", "error");
-    }
-    </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
 
 }
+
 
 @section Styles{
 

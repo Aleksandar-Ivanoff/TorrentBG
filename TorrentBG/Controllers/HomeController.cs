@@ -1,5 +1,6 @@
 ﻿namespace TorrentBG.App.Controllers
 {
+    using AspNetCoreHero.ToastNotification.Abstractions;
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
     using Microsoft.AspNetCore.Http;
@@ -16,7 +17,8 @@
     {
         private readonly IMapper mapper;
         private readonly ApplicationDbContext data;
-        private readonly ITorrentService torrentService; 
+        private readonly ITorrentService torrentService;
+   
 
         public HomeController(IMapper mapper,ApplicationDbContext dbContext, ITorrentService torrentService)
         {
@@ -28,5 +30,5 @@
         public IActionResult Index()         {            if (this.User.IsInRole(AdminConstants.AdministratorRoleName))
             {
                 return RedirectToAction("Index", "Home", new { area = "Admin" });
-            }            var torrents = this.torrentService.GetNewestTorrents().ProjectTo<NewestTorrentsViewModel>(this.mapper.ConfigurationProvider).ToList();            return View(torrents);        }        public IActionResult Error() => View(new ErrorViewModel());        }
+            }                       var torrents = this.torrentService.GetNewestTorrents().ProjectTo<NewestTorrentsViewModel>(this.mapper.ConfigurationProvider).ToList();            return View(torrents);        }        public IActionResult Error() => View(new ErrorViewModel());        }
 }

@@ -1,4 +1,5 @@
-﻿ using Microsoft.AspNetCore.Mvc;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,12 @@ namespace TorrentBG.App.Controllers
 {
     public class ContactsController : Controller
     {
+        private readonly INotyfService notyfService;
+
+        public ContactsController(INotyfService notyfService)
+        {
+            this.notyfService = notyfService;
+        }
         public IActionResult Index()
         {
             return View();
@@ -31,13 +38,17 @@ namespace TorrentBG.App.Controllers
 
             if (MailHelper.Send(contact.Email,EmailAddress,contact.Subject,content))
             {
+                this.notyfService.Success("Your mail is successfully sent!");
                 this.ViewBag.msg = "Success";
+                return View(contact = null);
             }
             else
             {
-                return RedirectToAction("Index", "Contacts");
+                this.notyfService.Error("Error with sending!");
             }
-            return View();
+            
+
+            return View(new ContactFormModel());
         }
     }
 }

@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.8" />
@@ -23,10 +24,6 @@
   <ItemGroup>
     <ProjectReference Include="..\TorrentBG.Data\TorrentBG.Data.csproj" />
     <ProjectReference Include="..\TorrentBG.Services\TorrentBG.Services.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\CreateTorrents\" />
   </ItemGroup>
 
 </Project>

@@ -1,3 +1,4 @@
+using AspNetCoreHero.ToastNotification;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -72,12 +73,14 @@ namespace TorrentBG
             services.AddTransient<IDeveloperService, DeveloperService>();
             services.AddTransient<IDirectorService, DirectorService>();
            
-           
-
-
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-        
-        
+
+            services.AddNotyf(cfg=> 
+            {
+                cfg.DurationInSeconds = 10;
+                cfg.IsDismissable = true;
+                cfg.Position = NotyfPosition.TopRight;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
