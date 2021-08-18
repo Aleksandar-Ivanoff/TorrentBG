@@ -10,6 +10,7 @@
     using TorrentBG.Services.City;
     using TorrentBG.Services.User.Models;
     using TorrentBG.Data.Models;
+    using TorrentBG.Services.Common;
 
     public class UserService : IUserService
     {
@@ -29,7 +30,7 @@
             this.data.SaveChanges();
         }
 
-        public void EditProfile(string userId,string userName, string FullName, string cityId, string phoneNumber, string email)
+        public void EditProfile(string userId,string userName, string FullName, string cityId, string phoneNumber, string email,string image)
         {
 
             var editedUser = this.data.Users.Find(userId);
@@ -39,6 +40,7 @@
             editedUser.Email = email;
             editedUser.PhoneNumber = phoneNumber;
             editedUser.UserName = userName;
+            editedUser.Image = image;
 
             this.data.Users.Update(editedUser);
             this.data.SaveChanges();
@@ -60,7 +62,9 @@
                 Email=userProfile.Email,
                 FullName=userProfile.FullName,
                 PhoneNumber = userProfile.PhoneNumber,
-                UserName=userProfile.UserName
+                UserName=userProfile.UserName,
+                ImagePath=ImageConverter.GetImagePathToShow(userProfile.Image)
+
             };
  
         }

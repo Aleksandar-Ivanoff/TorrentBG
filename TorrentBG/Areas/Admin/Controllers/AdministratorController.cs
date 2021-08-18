@@ -160,10 +160,14 @@
         private string ConvertImageFile(IFormFile formFile)
         {
             try
-            {
+            {   
                 string dir = Path.Combine(webHostEnvironment.WebRootPath, "img");
-
+                
                 string filePath = Path.Combine(dir, formFile.FileName);
+
+                formFile.CopyTo(new FileStream(filePath, FileMode.Create));
+
+                
                 return formFile.FileName;
             }
             catch (Exception)

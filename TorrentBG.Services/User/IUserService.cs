@@ -10,7 +10,7 @@
     public interface IUserService
     {
         UserProfileServiceModel GetCurrentProfile(string currentUser);
-        void EditProfile(string userId,string userName, string FullName, string cityId, string phoneNumber,string email);
+        void EditProfile(string userId,string userName, string FullName, string cityId, string phoneNumber,string email, string image);
 
         void DeleteProfile(string userId);
     }

@@ -1,5 +1,6 @@
 ﻿namespace TorrentBG.Models.UserProfile
 {
+    using Microsoft.AspNetCore.Http;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -26,6 +27,9 @@
 
         public string City { get; set; }
         public string CityId { get; set; }
+
+        public string ImagePath { get; set; }
+        public IFormFile Image { get; set; }
 
         public IEnumerable<CitiesListingViewModel> Cities { get; set; }
     }

@@ -16,6 +16,7 @@
     using TorrentBG.Services.Director;
     using Microsoft.AspNetCore.Http;
     using System.IO;
+    using TorrentBG.Services.Common;
 
     public class TorrentService : ITorrentService
     {
@@ -26,7 +27,10 @@
         private readonly IDeveloperService developerService;
         private readonly IDirectorService directorService;
 
-        public TorrentService(ApplicationDbContext data, ICategoryService categoryService, IGenreService genreService,IMapper mapper, IDeveloperService developerService, IDirectorService directorService)
+        
+
+        public TorrentService(ApplicationDbContext data, ICategoryService categoryService, IGenreService genreService,IMapper mapper, IDeveloperService developerService,
+            IDirectorService directorService)
         {
             this.data = data;
             this.categoryService = categoryService;
@@ -34,6 +38,8 @@
             this.mapper = mapper;
             this.developerService = developerService;
             this.directorService = directorService;
+
+           
 
         }
         public AllTorrentServiceModel All(string searchTerm, string genre, string category, int currentPage, int torrentsPerPage)
@@ -82,7 +88,7 @@
                 Name = x.Name,
                 Downloads = x.Users.Count(),
                 Description=x.Description,
-                Image=GetImagePathToShow(x.Image),
+                Image=ImageConverter.GetImagePathToShow(x.Image),
                 CategoryId=x.CategoryId,
                 GenreId=x.GenreId,
                 DirectorId=x.DirectorId,
@@ -107,7 +113,7 @@
                 Id = x.Id,
                 Description = x.Description,
                 Name = x.Name,
-                Image = GetImagePathToShow(x.Image)
+                Image = ImageConverter.GetImagePathToShow(x.Image)
             }).Take(3); 
         }
 
@@ -177,6 +183,8 @@
                 .Where(x => x.Id == torrentId)
                 .FirstOrDefault();
 
+           
+
             if (torrent.Category.Name == "Games")
             {
                 return IfTorrentIsAGame(torrent);
@@ -229,7 +237,7 @@
                 {
                     Id= t.Id,
                     Description=t.Description,
-                    Image=GetImagePathToShow(t.Image),
+                    Image= ImageConverter.GetImagePathToShow(t.Image),
                     Name=t.Name,
                 }).ToList();
 
@@ -244,7 +252,7 @@
                 {
                     Id = t.Id,
                     Description = t.Description,
-                    Image = GetImagePathToShow(t.Image),
+                    Image = ImageConverter.GetImagePathToShow(t.Image),
                     Name = t.Name,
                 }).ToList();
 
@@ -267,7 +275,6 @@
                 Name = torrent.Name,
                 InstallInstructions = torrent.InstallInstructions,
                 Year = torrent.Year,
-                ImagePath = GetImagePathToShow(torrent.Image),
                 Description = torrent.Description,
                 DeveloperId = torrent.DeveloperId,
                 DeveloperName = this.developerService.GetDeveloperName(torrent.DeveloperId),
@@ -287,7 +294,6 @@
                 MainActors = torrent.MainActors,
                 Length = torrent.Length,
                 Year = torrent.Year,
-                ImagePath = GetImagePathToShow(torrent.Image),
                 Description = torrent.Description,
                 DirectorId = torrent.DirectorId,
                 DirectorName = this.directorService.GetDirectorName(torrent.DirectorId),
@@ -308,7 +314,7 @@
                 {
                     Description = x.Description,
                     Id = x.Id,
-                    Image = GetImagePathToShow(x.Image),
+                    Image = ImageConverter.GetImagePathToShow(x.Image),
                     Name = x.Name,
 
                 }).ToList();
@@ -317,16 +323,6 @@
             return torrents;
         }
 
-        private static string GetImagePathToShow(string image)
-        {
-            if (image is null)
-            {
-                return "noImage.jpg";
-            }
-            var filePath = Path.GetFileName(image);
-
-            return filePath;
-        }
 
         public void AddUserToTorrent(string userId,string torrentName)
         {
@@ -346,7 +342,7 @@
                 Name = x.Name,
                 Description = x.Description,
                 Id = x.Id,
-                Image = GetImagePathToShow(x.Image)
+                Image = ImageConverter.GetImagePathToShow(x.Image)
 
             }).ToList();
         }
@@ -358,7 +354,7 @@
                 Name = x.Name,
                 Description = x.Description,
                 Id = x.Id,
-                Image = GetImagePathToShow(x.Image)
+                Image = ImageConverter.GetImagePathToShow(x.Image)
 
             }).ToList();
         }
@@ -370,7 +366,7 @@
                 Name = x.Name,
                 Description = x.Description,
                 Id = x.Id,
-                Image = GetImagePathToShow(x.Image)
+                Image = ImageConverter.GetImagePathToShow(x.Image)
 
             }).ToList();
         }

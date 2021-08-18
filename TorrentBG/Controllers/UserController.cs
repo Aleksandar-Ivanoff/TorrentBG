@@ -2,12 +2,15 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using TorrentBG.Data;
@@ -24,14 +27,17 @@
         private readonly ApplicationDbContext data;
         private readonly ICityService cityService;
         private readonly SignInManager<User> signInManager;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public UserController(IMapper mapper,ApplicationDbContext dbContext,IUserService userService, ICityService cityService,SignInManager<User> signInManager)
+        public UserController(IMapper mapper,ApplicationDbContext dbContext,IUserService userService, ICityService cityService,
+            SignInManager<User> signInManager, IWebHostEnvironment webHostEnvironment)
         {
             this.mapper = mapper;
             this.data = dbContext;
             this.userService = userService;
             this.cityService = cityService;
             this.signInManager = signInManager;
+            this.webHostEnvironment = webHostEnvironment;
         }
         
         public IActionResult Profile()
@@ -68,7 +74,10 @@
                 profileModel.CityId = null;
             }
 
-            this.userService.EditProfile(userId:profileModel.Id,FullName: profileModel.FullName, email:profileModel.Email, phoneNumber:profileModel.PhoneNumber, cityId:profileModel.CityId, userName:profileModel.UserName);
+            var image = ConvertImageFile(profileModel.Image);
+
+            this.userService.EditProfile(userId:profileModel.Id,FullName: profileModel.FullName, email:profileModel.Email,
+                phoneNumber:profileModel.PhoneNumber, cityId:profileModel.CityId, userName:profileModel.UserName, image:image);
             
             return RedirectToAction("Profile", "User");
 
@@ -83,5 +92,25 @@
             return   RedirectToAction("Index", "Home");
         }
 
+        private string ConvertImageFile(IFormFile formFile)
+        {
+            try
+            {
+                string dir = Path.Combine(webHostEnvironment.WebRootPath, "img");
+
+                string filePath = Path.Combine(dir, formFile.FileName);
+
+                formFile.CopyTo(new FileStream(filePath, FileMode.Create));
+
+
+                return formFile.FileName;
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+
+        }
     }
 }
