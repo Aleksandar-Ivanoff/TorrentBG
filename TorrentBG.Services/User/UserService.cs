@@ -35,12 +35,16 @@
 
             var editedUser = this.data.Users.Find(userId);
 
+            if (image != null)
+            {
+                editedUser.Image = image;
+            }
+
             editedUser.CityId = cityId;
             editedUser.FullName = FullName;
             editedUser.Email = email;
             editedUser.PhoneNumber = phoneNumber;
             editedUser.UserName = userName;
-            editedUser.Image = image;
 
             this.data.Users.Update(editedUser);
             this.data.SaveChanges();

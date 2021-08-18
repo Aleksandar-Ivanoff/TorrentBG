@@ -1,5 +1,7 @@
 ﻿@model TorrentDetailsViewModel
-
+@{ 
+   ViewData["Title"]=$"TorrentBG || {Model.Name}";
+}
 <section style=" margin-top: -50px;">
     <div class="torrent-title" style="display: flex; justify-content: center; align-items: center; position: relative; color: rgb(39, 89, 146);">
         <h1 id="torrentName">@Model.Name</h1>
@@ -39,7 +41,7 @@
             @Model.Description
         </p>
         <h4>Downloads(@Model.Downloads)</h4>
-        <a asp-controller="Torrents" asp-action="Download" asp-route-torrentName="@Model.Name" asp-route-imagePath="@Model.Image"><button>Download</button></a>
+        <a asp-controller="Torrents" asp-action="Download" asp-route-torrentName="@Model.Name" ><button>Download</button></a>
         <hr style="width: 50%;">
     </div>
 </section>

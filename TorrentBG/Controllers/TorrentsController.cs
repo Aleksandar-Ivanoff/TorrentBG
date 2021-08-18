@@ -15,6 +15,8 @@
     using System.Threading.Tasks;
     using System.IO;
     using System.Security.Claims;
+    using Microsoft.Extensions.FileProviders;
+    using Microsoft.AspNetCore.Hosting;
 
     [Authorize]
     public class TorrentsController : Controller
@@ -22,12 +24,14 @@
         private readonly ApplicationDbContext data;
         private readonly IMapper mapper;
         private readonly ITorrentService torrentService;
+        private readonly IHostingEnvironment hostingEnvironment;
 
-        public TorrentsController(ApplicationDbContext dbContext, IMapper mapper, ITorrentService torrentService)
+        public TorrentsController(ApplicationDbContext dbContext, IMapper mapper, ITorrentService torrentService, IHostingEnvironment hostingEnvironment)
         {
             this.data = dbContext;
             this.mapper = mapper;
             this.torrentService = torrentService;
+            this.hostingEnvironment = hostingEnvironment;
         }
         public IActionResult All([FromQuery]AllTorrentsQueryModel query)
         {
@@ -55,26 +59,24 @@
         }
 
         
-        public async Task<IActionResult> Download(string imagePath,string torrentName)
+        public  IActionResult Download(string torrentName)
         {
-            var user= this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
+            var user = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             this.torrentService.AddUserToTorrent(user, torrentName);
-            imagePath = "img\\" + imagePath;
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", imagePath);
+    
+            var path = Path.Combine(hostingEnvironment.WebRootPath, "torrents");
 
-            var memory = new MemoryStream();
+            IFileProvider provider = new PhysicalFileProvider(path);
 
-            using(var stream=new FileStream(path, FileMode.Open))
-            {
-                await stream.CopyToAsync(memory);
-            }
-            memory.Position = 0;
+            torrentName = torrentName + ".torrent";
+            IFileInfo fileInfo = provider.GetFileInfo(torrentName);
+            var readSystem = fileInfo.CreateReadStream();
+            
 
-            var contentType = "application/octet-stream";
-            var fileName = Path.GetFileName(path);
+            var contentType = "application/x-bittorrent";
+            
            
-            return File(memory,contentType,fileName);
+            return File(readSystem,contentType,torrentName);
         }
 
 

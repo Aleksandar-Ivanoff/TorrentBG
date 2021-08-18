@@ -170,7 +170,7 @@
                 
                 return formFile.FileName;
             }
-            catch (Exception)
+            catch (NullReferenceException)
             {
 
                 return null;

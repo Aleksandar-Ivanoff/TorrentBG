@@ -199,14 +199,16 @@
         {
             var torrent = this.data.Torrents.Where(x => x.Id == editModel.Id).FirstOrDefault();
 
+            if (editModel.ImagePath != null)
+            {
+                torrent.Image = editModel.ImagePath;
+            }
 
             torrent.Name = editModel.Name;
             torrent.Description = editModel.Description;
             torrent.Year = editModel.Year;
             torrent.GenreId = editModel.GenreId;
             torrent.CategoryId = editModel.CategoryId;
-            torrent.Image = editModel.ImagePath;
-
 
             editModel.CategoryName = this.categoryService.GetCategoryNameById(editModel.CategoryId);
 
