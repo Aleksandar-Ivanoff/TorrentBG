@@ -1,0 +1,44 @@
+﻿body {
+    background-color: #eee
+}
+
+.card {
+    width: 100%;
+    border: none;
+    position: relative
+}
+
+.border-blue {
+    border: 2px solid blue
+}
+
+.dots {
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    background-color: blue;
+    border-radius: 50%;
+    top: 7px;
+    left: 7px
+}
+
+.user-image img {
+    margin-right: 8px
+}
+
+.date {
+    font-weight: 300;
+    font-size: 13px
+}
+
+.form-control {
+    box-shadow: none !important
+}
+
+    .form-control:focus {
+        border: 1px solid blue
+    }
+
+.content {
+    font-size: 14px
+}

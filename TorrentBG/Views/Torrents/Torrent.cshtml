@@ -41,7 +41,27 @@
             @Model.Description
         </p>
         <h4>Downloads(@Model.Downloads)</h4>
-        <a asp-controller="Torrents" asp-action="Download" asp-route-torrentName="@Model.Name" ><button>Download</button></a>
+        <a asp-controller="Torrents" asp-action="Download" asp-route-torrentName="@Model.Name"><button>Download</button></a>
         <hr style="width: 50%;">
     </div>
+
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="Show()">
+            Comments
+        </button>
+     </div>
+
+    <div id="comments" style="display:none">
+        <partial name="_CommentsPartial" />
+        <partial name="_CommentsPartial" />
+        <partial name="_CommentsPartial" /> 
+    </div>
+        
+
+
 </section>
+
+@section Scripts
+{
+  <script src="~/js/commentsScript.js"></script>
+}

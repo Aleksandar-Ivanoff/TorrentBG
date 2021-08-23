@@ -2,6 +2,11 @@
 {
     public class DataConstants
     {
+        public class Comment
+        {
+            public const int MinTextLength = 3;
+            public const int MaxTextLength = 50;
+        }
         public class Contact 
         {
             public const int MinNameLength = 4;

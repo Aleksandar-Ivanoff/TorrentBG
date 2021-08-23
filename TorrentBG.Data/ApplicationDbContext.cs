@@ -22,6 +22,8 @@
 
         public DbSet<TorrentUser> TorrentUser { get; set; }
 
+        public DbSet<Comment> Comments { get; set; }
+
         
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -40,7 +42,7 @@
 
             builder.Entity<TorrentUser>().HasOne(x => x.User).WithMany(x => x.Torrents).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
 
-
+            builder.Entity<Comment>().HasOne(x => x.User).WithMany(x => x.Comments).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

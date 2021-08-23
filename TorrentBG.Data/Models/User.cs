@@ -19,5 +19,6 @@
         public string Image { get; set; }
 
         public ICollection<TorrentUser> Torrents { get; set; } = new HashSet<TorrentUser>();
+        public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
     }
 }
