@@ -36,8 +36,11 @@
             builder.Entity<Torrent>().HasOne(x => x.Director).WithMany(x => x.Torrents).HasForeignKey(c => c.DirectorId).OnDelete(DeleteBehavior.Restrict);
 
 
-           
-        
+            builder.Entity<TorrentUser>().HasOne(x => x.Torrent).WithMany(x => x.Users).HasForeignKey(x => x.TorrentId).OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<TorrentUser>().HasOne(x => x.User).WithMany(x => x.Torrents).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
+
+
         }
     }
 }

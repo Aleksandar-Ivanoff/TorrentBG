@@ -84,11 +84,11 @@
         }
 
        
-        public IActionResult Delete(string Id)
+        public async Task<IActionResult> Delete(string Id)
         {
             this.userService.DeleteProfile(Id);
 
-            this.signInManager.SignOutAsync();  
+           await this.signInManager.SignOutAsync();  
             return   RedirectToAction("Index", "Home");
         }
 
