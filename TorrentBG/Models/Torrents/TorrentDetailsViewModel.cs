@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using TorrentBG.Services.Comment.Models;
 
     public class TorrentDetailsViewModel
     {
@@ -33,6 +34,12 @@
         public string DeveloperId { get; set; }
 
         public string  Image { get; set; }
+
+        public ICollection<CommentServiceModel> Comments { get; set; }
+
+        public string UserImage { get; set; }
+
+        public string CommentText { get; set; }
 
     }
 }

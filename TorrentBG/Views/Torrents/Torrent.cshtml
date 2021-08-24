@@ -1,6 +1,6 @@
 ﻿@model TorrentDetailsViewModel
-@{ 
-   ViewData["Title"]=$"TorrentBG || {Model.Name}";
+@{
+    ViewData["Title"] = $"TorrentBG || {Model.Name}";
 }
 <section style=" margin-top: -50px;">
     <div class="torrent-title" style="display: flex; justify-content: center; align-items: center; position: relative; color: rgb(39, 89, 146);">
@@ -46,22 +46,137 @@
     </div>
 
     <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="Show()">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="Show()">
             Comments
         </button>
-     </div>
-
-    <div id="comments" style="display:none">
-        <partial name="_CommentsPartial" />
-        <partial name="_CommentsPartial" />
-        <partial name="_CommentsPartial" /> 
     </div>
-        
+
+    <div id="comments" style="display:block">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <section class="content-item" id="comments">
+            <div class="container">
+                <div class="row">
+                    <form asp-action="CreateComment">
+                        <h3 class="pull-left" id="userInput">@this.User.Identity.Name</h3>
+                        <button type="submit" class="btn btn-normal pull-right" id="sendButton">Submit</button>
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-sm-3 col-lg-2 hidden-xs">
+                                    <img class="img-responsive" src="~/img/@Model.UserImage" alt="@this.User.Identity.Name's photo">
+                                </div>
+                                <input type="hidden"  asp-for="Id"/>
+                                <div class="form-group col-xs-12 col-sm-9 col-lg-10">
+                                    <input type="text" class="form-control" id="message" placeholder="Your message" asp-for="CommentText" />
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                    <div class="col-sm-8" id="section">
+                        <form asp-action="CreateComment">
+                            <h3 class="pull-left" id="userInput">@this.User.Identity.Name</h3>
+                            <button type="submit" class="btn btn-normal pull-right" id="sendButton">Submit</button>
+                            <fieldset>
+                                <div class="row">
+                                    <div class="col-sm-3 col-lg-2 hidden-xs">
+                                        <img class="img-responsive" src="~/img/@Model.UserImage" alt="@this.User.Identity.Name's photo">
+                                    </div>
+                                    <div class="form-group col-xs-12 col-sm-9 col-lg-10">
+                                        <input type="text" class="form-control" id="message" placeholder="Your message" asp-for="CommentText" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                        ;
+                        <h3>@Model.Comments.Count Comments</h3>
+
+                        <!-- COMMENT 1 - START -->
+                        <div class="media">
+                            <a class="pull-left" href="#"><img class="media-object" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""></a>
+                            <div class="media-body">
+                                <h4 class="media-heading">John Doe</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                <ul class="list-unstyled list-inline media-detail pull-left">
+                                    <li><i class="fa fa-calendar"></i>27/02/2014</li>
+                                    <li><i class="fa fa-thumbs-up"></i>13</li>
+                                </ul>
+                                <ul class="list-unstyled list-inline media-detail pull-right">
+                                    <li class=""><a href="">Like</a></li>
+                                    <li class=""><a href="">Reply</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- COMMENT 1 - END -->
+                        <!-- COMMENT 2 - START -->
+                        <div class="media">
+                            <a class="pull-left" href="#"><img class="media-object" src="https://bootdey.com/img/Content/avatar/avatar2.png" alt=""></a>
+                            <div class="media-body">
+                                <h4 class="media-heading">John Doe</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                <ul class="list-unstyled list-inline media-detail pull-left">
+                                    <li><i class="fa fa-calendar"></i>27/02/2014</li>
+                                    <li><i class="fa fa-thumbs-up"></i>13</li>
+                                </ul>
+                                <ul class="list-unstyled list-inline media-detail pull-right">
+                                    <li class=""><a href="">Like</a></li>
+                                    <li class=""><a href="">Reply</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- COMMENT 2 - END -->
+                        <!-- COMMENT 3 - START -->
+                        <div class="media">
+                            <a class="pull-left" href="#"><img class="media-object" src="https://bootdey.com/img/Content/avatar/avatar3.png" alt=""></a>
+                            <div class="media-body">
+                                <h4 class="media-heading">John Doe</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                <ul class="list-unstyled list-inline media-detail pull-left">
+                                    <li><i class="fa fa-calendar"></i>27/02/2014</li>
+                                    <li><i class="fa fa-thumbs-up"></i>13</li>
+                                </ul>
+                                <ul class="list-unstyled list-inline media-detail pull-right">
+                                    <li class=""><a href="">Like</a></li>
+                                    <li class=""><a href="">Reply</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- COMMENT 3 - END -->
+                        <!-- COMMENT 4 - START -->
+                        <div class="media">
+                            <a class="pull-left" href="#"><img class="media-object" src="https://bootdey.com/img/Content/avatar/avatar4.png" alt=""></a>
+                            <div class="media-body">
+                                <h4 class="media-heading">John Doe</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                <ul class="list-unstyled list-inline media-detail pull-left">
+                                    <li><i class="fa fa-calendar"></i>27/02/2014</li>
+                                    <li><i class="fa fa-thumbs-up"></i>13</li>
+                                </ul>
+                                <ul class="list-unstyled list-inline media-detail pull-right">
+                                    <li class=""><a href="">Like</a></li>
+                                    <li class=""><a href="">Reply</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- COMMENT 4 - END -->
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
 
 
 </section>
 
+
+@section Styles{
+    <link href="~/css/commentStyle.css" rel="stylesheet" />
+}
+
 @section Scripts
 {
-  <script src="~/js/commentsScript.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/microsoft/signalr/dist/browser/signalr.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/js/signalrRequestHandler.js"></script>
 }

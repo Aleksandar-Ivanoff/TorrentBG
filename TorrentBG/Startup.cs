@@ -11,9 +11,11 @@ using Microsoft.Extensions.Hosting;
 using TorrentBG.Common;
 using TorrentBG.Data;
 using TorrentBG.Data.Models;
+using TorrentBG.Hubs;
 using TorrentBG.MappingConfiguration;
 using TorrentBG.Services.Category;
 using TorrentBG.Services.City;
+using TorrentBG.Services.Comment;
 using TorrentBG.Services.Developer;
 using TorrentBG.Services.Director;
 using TorrentBG.Services.Genre;
@@ -38,16 +40,15 @@ namespace TorrentBG
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
+            services.AddSignalR(cfg=>cfg.EnableDetailedErrors = true);
+
             services
-                .AddDefaultIdentity<User>(options => 
+                .AddDefaultIdentity<User>(options =>
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireNonAlphanumeric = false;
-                
-
-
             })
              .AddRoles<IdentityRole>()
              .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -72,6 +73,7 @@ namespace TorrentBG
             services.AddTransient<ITorrentService, TorrentService>();
             services.AddTransient<IDeveloperService, DeveloperService>();
             services.AddTransient<IDirectorService, DirectorService>();
+            services.AddTransient<ICommentService, CommentService>();
            
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
@@ -109,8 +111,7 @@ namespace TorrentBG
             app.UseAuthorization();
 
             app.PrepareDatabase();
-
-           
+            
 
             app.UseEndpoints(endpoints =>
             {
@@ -123,6 +124,9 @@ namespace TorrentBG
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+
+
+                endpoints.MapHub<SignalrServer>("/signalrserver");
             });
         }
     }

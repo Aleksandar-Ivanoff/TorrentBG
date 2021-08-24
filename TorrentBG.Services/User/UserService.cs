@@ -50,6 +50,10 @@
             this.data.SaveChanges();
         }
 
+        public User GetUserById(string userId)
+            => this.data.Users.Where(u => u.Id == userId).FirstOrDefault();
+        
+
         public UserProfileServiceModel GetCurrentProfile(string userId)
         {
             var userProfile = this.data.Users.Where(x => x.Id == userId).FirstOrDefault();
@@ -71,6 +75,22 @@
 
             };
  
+        }
+
+        public UserProfileServiceModel GetUserByName(string userName)
+        {
+            var userProfile = this.data.Users.Where(x => x.FullName == userName).FirstOrDefault();
+            return new UserProfileServiceModel
+            {
+                Id = userProfile.Id,
+                City = this.cityService.GetCityNameByUserId(userProfile.Id),
+                Email = userProfile.Email,
+                FullName = userProfile.FullName,
+                PhoneNumber = userProfile.PhoneNumber,
+                UserName = userProfile.UserName,
+                ImagePath = ImageConverter.GetImagePathToShow(userProfile.Image)
+
+            };
         }
     }
 }

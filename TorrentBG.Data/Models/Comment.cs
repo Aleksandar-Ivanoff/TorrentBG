@@ -23,5 +23,9 @@
         [Required]
         public string UserId { get; set; }
         public User User { get; set; }
+
+        [Required]
+        public string TorrentId { get; set; }
+        public Torrent Torrent { get; set; }
     }
 }

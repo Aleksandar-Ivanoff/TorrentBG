@@ -197,11 +197,17 @@ namespace TorrentBG.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("TorrentId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TorrentId");
 
                     b.HasIndex("UserId");
 
@@ -463,11 +469,19 @@ namespace TorrentBG.Data.Migrations
 
             modelBuilder.Entity("TorrentBG.Data.Models.Comment", b =>
                 {
+                    b.HasOne("TorrentBG.Data.Models.Torrent", "Torrent")
+                        .WithMany("Comments")
+                        .HasForeignKey("TorrentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("TorrentBG.Data.Models.User", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Torrent");
 
                     b.Navigation("User");
                 });
@@ -558,6 +572,8 @@ namespace TorrentBG.Data.Migrations
 
             modelBuilder.Entity("TorrentBG.Data.Models.Torrent", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("Users");
                 });
 

@@ -64,6 +64,7 @@
 
 
         public ICollection<TorrentUser> Users { get; set; } = new HashSet<TorrentUser>();
+        public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
 
     }
 }

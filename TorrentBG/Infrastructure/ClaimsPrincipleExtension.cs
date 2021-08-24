@@ -5,8 +5,8 @@
     public static  class ClaimsPrincipleExtension
     {
         public static bool IsAdmin(this ClaimsPrincipal user) => user.IsInRole(AdministratorRoleName);
+
         
-           
-        
+                
     }
 }
