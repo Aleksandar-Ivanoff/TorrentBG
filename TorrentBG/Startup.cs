@@ -12,6 +12,7 @@ using TorrentBG.Common;
 using TorrentBG.Data;
 using TorrentBG.Data.Models;
 using TorrentBG.Hubs;
+using TorrentBG.Infrastructure;
 using TorrentBG.MappingConfiguration;
 using TorrentBG.Services.Category;
 using TorrentBG.Services.City;
@@ -34,55 +35,14 @@ namespace TorrentBG
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services
-                .AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-            services.AddDatabaseDeveloperPageExceptionFilter();
-
+          //Adding services to the container.
+            services.RegisterDbContext(this.Configuration);
             services.AddSignalR(cfg=>cfg.EnableDetailedErrors = true);
-
-            services
-                .AddDefaultIdentity<User>(options =>
-            {
-                options.Password.RequireDigit = false;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireUppercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-            })
-             .AddRoles<IdentityRole>()
-             .AddEntityFrameworkStores<ApplicationDbContext>();
-
-            //AutoMapper
-            var mapperConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new TorrentBGProfile());
-                mc.AddProfile(new TorrentBGServiceProfile());
-
-            });
-            
-            IMapper mapper = mapperConfig.CreateMapper();
-            services.AddSingleton(mapper);
-
+            services.AddDatabaseDeveloperPageExceptionFilter();
+            services.RegisterIdentity();
+            services.RegisterAutoMapper();
             services.AddControllersWithViews();
 
-            services.AddTransient<IUserService, UserService>();
-            services.AddTransient<ICityService, CityService>();
-            services.AddTransient<IGenreService, GenreService>();
-            services.AddTransient<ICategoryService, CategoryService>();
-            services.AddTransient<ITorrentService, TorrentService>();
-            services.AddTransient<IDeveloperService, DeveloperService>();
-            services.AddTransient<IDirectorService, DirectorService>();
-            services.AddTransient<ICommentService, CommentService>();
-           
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
-            services.AddNotyf(cfg=> 
-            {
-                cfg.DurationInSeconds = 10;
-                cfg.IsDismissable = true;
-                cfg.Position = NotyfPosition.TopRight;
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
