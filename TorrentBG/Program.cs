@@ -1,8 +1,3 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using TorrentBG.Common;
-using TorrentBG.Infrastructure;
-
 var builder = WebApplication.CreateBuilder(args);
 
 //Add services to the container

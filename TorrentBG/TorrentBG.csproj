@@ -4,6 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <UserSecretsId>aspnet-TorrentBG-01C4F3D8-7CFE-41B9-A35D-0425304519F3</UserSecretsId>
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
+	  <ImplicitUsings>true</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,5 +27,10 @@
     <ProjectReference Include="..\TorrentBG.Data\TorrentBG.Data.csproj" />
     <ProjectReference Include="..\TorrentBG.Services\TorrentBG.Services.csproj" />
   </ItemGroup>
+
+	<ItemGroup>
+		<Using Include="TorrentBG.Common"/>
+		<Using Include="TorrentBG.Infrastructure"/>
+	</ItemGroup>
 
 </Project>
