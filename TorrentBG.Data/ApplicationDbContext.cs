@@ -45,6 +45,7 @@
             builder.Entity<Comment>().HasOne(x => x.Torrent).WithMany(x => x.Comments).HasForeignKey(x => x.TorrentId).OnDelete(DeleteBehavior.Cascade);
             
             builder.Entity<Comment>().HasOne(x => x.User).WithMany(x => x.Comments).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Torrent>().HasOne(x => x.Category).WithMany(x => x.Torrents).HasForeignKey(x => x.CategoryId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

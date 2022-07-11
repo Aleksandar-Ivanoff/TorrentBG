@@ -7,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using TorrentBG.Data;
 using TorrentBG.Data.Models;
-using TorrentBG.MappingConfiguration;
 using TorrentBG.Services.Category;
 using TorrentBG.Services.City;
 using TorrentBG.Services.Comment;
@@ -29,16 +28,15 @@ namespace TorrentBG.Infrastructure
         } 
         public static IServiceCollection RegisterIdentity(this IServiceCollection services)
         {
-            services
-               .AddDefaultIdentity<User>(options =>
-               {
-                   options.Password.RequireDigit = false;
-                   options.Password.RequireLowercase = false;
-                   options.Password.RequireUppercase = false;
-                   options.Password.RequireNonAlphanumeric = false;
-               })
-            .AddRoles<IdentityRole>()
-            .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<User, IdentityRole>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+
+            }).AddEntityFrameworkStores<ApplicationDbContext>();
+            
 
             return services;
         }

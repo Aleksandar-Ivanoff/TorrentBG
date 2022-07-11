@@ -1,10 +1,6 @@
-using AspNetCoreHero.ToastNotification;
-using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -13,15 +9,7 @@ using TorrentBG.Data;
 using TorrentBG.Data.Models;
 using TorrentBG.Hubs;
 using TorrentBG.Infrastructure;
-using TorrentBG.MappingConfiguration;
-using TorrentBG.Services.Category;
-using TorrentBG.Services.City;
-using TorrentBG.Services.Comment;
-using TorrentBG.Services.Developer;
-using TorrentBG.Services.Director;
-using TorrentBG.Services.Genre;
-using TorrentBG.Services.Torrent;
-using TorrentBG.Services.User;
+
 
 
 namespace TorrentBG
@@ -39,7 +27,18 @@ namespace TorrentBG
             services.RegisterDbContext(this.Configuration);
             services.AddSignalR(cfg=>cfg.EnableDetailedErrors = true);
             services.AddDatabaseDeveloperPageExceptionFilter();
-            services.RegisterIdentity();
+            services.RegisterServices();
+
+            services
+               .AddDefaultIdentity<User>(options =>
+               {
+                   options.Password.RequireDigit = false;
+                   options.Password.RequireLowercase = false;
+                   options.Password.RequireUppercase = false;
+                   options.Password.RequireNonAlphanumeric = false;
+               })
+            .AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>();
             services.RegisterAutoMapper();
             services.AddControllersWithViews();
 
