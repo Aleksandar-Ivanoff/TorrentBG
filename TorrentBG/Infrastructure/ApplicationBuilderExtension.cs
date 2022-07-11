@@ -81,7 +81,7 @@
         private static void SeedAdministrator(IServiceProvider services)
         {
             var userManager = services.GetRequiredService<UserManager<User>>();
-            var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+            var roleManager = services.GetRequiredService<RoleManager<Role>>();
 
             Task
                 .Run(async () =>
@@ -91,7 +91,7 @@
                         return;
                     }
 
-                    var role = new IdentityRole { Name = AdministratorRoleName, Id = Guid.NewGuid().ToString() };
+                    var role = new Role { Name = AdministratorRoleName, Id = Guid.NewGuid().ToString() };
                     await roleManager.CreateAsync(role);
 
                     var adminUser = new User

@@ -4,7 +4,7 @@
     using Microsoft.EntityFrameworkCore;
     using TorrentBG.Data.Models;
 
-    public class ApplicationDbContext : IdentityDbContext<User>
+    public class ApplicationDbContext : IdentityDbContext<User,Role,string>
     {
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {

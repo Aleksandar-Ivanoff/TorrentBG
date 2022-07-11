@@ -28,7 +28,7 @@ namespace TorrentBG.Infrastructure
         } 
         public static IServiceCollection RegisterIdentity(this IServiceCollection services)
         {
-            services.AddIdentity<User, IdentityRole>(options =>
+            services.AddIdentity<User, Role>(options =>
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;
