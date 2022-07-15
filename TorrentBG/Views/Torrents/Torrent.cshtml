@@ -55,8 +55,8 @@
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <section class="content-item" id="comments">
             <div class="container">
-                <div class="row">
-                    <form asp-action="CreateComment">
+                <div class="row" >
+                    <form asp-action="CreateComment" id="section">
                         <h3 class="pull-left" id="userInput">@this.User.Identity.Name</h3>
                         <button type="submit" class="btn btn-normal pull-right" id="sendButton">Submit</button>
                         <fieldset>
@@ -70,6 +70,24 @@
                                 </div>
                             </div>
                         </fieldset>
+                         @foreach (var comment in Model.Comments)
+   {
+                             <div class="media" >
+                            <a class="pull-left" href="#"><img class="media-object" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""></a>
+                            <div class="media-body">
+                                <h4 class="media-heading">@comment.UserName</h4>
+                                <p>@comment.Text</p>
+                                <ul class="list-unstyled list-inline media-detail pull-left">
+                                    <li><i class="fa fa-calendar"></i>@comment.CreatedOn</li>
+                                    <li><i class="fa fa-thumbs-up"></i>13</li>
+                                </ul>
+                                <ul class="list-unstyled list-inline media-detail pull-right">
+                                    <li class=""><a href="">Like</a></li>
+                                    <li class=""><a href="">Reply</a></li>
+                                </ul>
+                            </div>
+                        </div>;
+   }
                     </form>    
                         <h3>@Model.Comments.Count Comments</h3>
                     </div>
@@ -77,6 +95,8 @@
             </div>
         </section>
     </div>
+
+  
 </section>
 
 
@@ -87,5 +107,4 @@
 @section Scripts
 {
     <script src="~/js/comment.js "></script>
-
 }

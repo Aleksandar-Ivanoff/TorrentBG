@@ -2,7 +2,8 @@
 
 let connection = new signalR.HubConnectionBuilder().withUrl("/commentHub").build();
 
-connection.on("CommentIsCreated", function (user, message) {
+connection.on("CommentIsCreated", function (user, message)
+{
     const comment = ` <div class="media" >
                             <a class="pull-left" href="#"><img class="media-object" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""></a>
                             <div class="media-body">
@@ -20,8 +21,8 @@ connection.on("CommentIsCreated", function (user, message) {
                         </div>`;
 
     let commentParentElement = document.getElementById("section")
-
     commentParentElement.innerHTML += comment;
+ 
 });
 
 connection.start().then(() => {
