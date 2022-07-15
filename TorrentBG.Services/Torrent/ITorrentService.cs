@@ -10,10 +10,12 @@ namespace TorrentBG.Services.Torrent
     {
         AllTorrentServiceModel All(string searchTerm, string genre, string category,int currentPage,int torrentsPerPage);
         EditTorrentFormServiceModel GetEditModelForView(string torrentId);
+        TorrentServiceModel GetTorrentByName(string torrentName);
         IEnumerable<TorrentListServiceModel> GetTorrentsByDirector(string directorId);
         IEnumerable<TorrentListServiceModel> GetTorrentsByDeveloper(string developerId);
         IQueryable<NewestTorrentsServiceModel> GetNewestTorrents();
         TorrentServiceModel GetTorrentById(string torrentId);
+        string GetTorrentId(string torrentName);
 
         IEnumerable<TorrentListServiceModel> GetGames();
         IEnumerable<TorrentListServiceModel> GetSeries();

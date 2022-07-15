@@ -32,11 +32,11 @@
         private readonly IHostingEnvironment hostingEnvironment;
         private readonly UserManager<User> userManager;
         private readonly ICommentService commentService;
-        private readonly IHubContext<SignalrServer> hubContext;
+     
 
         public TorrentsController(ApplicationDbContext dbContext, IMapper mapper, ITorrentService torrentService,
             IHostingEnvironment hostingEnvironment,UserManager<User> userManager,
-            ICommentService commentService, IHubContext<SignalrServer> hubContext)
+            ICommentService commentService)
         {
             this.data = dbContext;
             this.mapper = mapper;
@@ -44,7 +44,7 @@
             this.hostingEnvironment = hostingEnvironment;
             this.userManager = userManager;
             this.commentService = commentService;
-            this.hubContext = hubContext;
+           
         }
         public IActionResult All([FromQuery]AllTorrentsQueryModel query)
         {

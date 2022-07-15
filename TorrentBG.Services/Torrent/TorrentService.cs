@@ -372,5 +372,33 @@
 
             }).ToList();
         }
+
+        public TorrentServiceModel GetTorrentByName(string torrentName)
+        {
+            var torrent = this.data.Torrents.Where(x => x.Name == torrentName)
+                 .Select(t => new TorrentServiceModel
+                 {
+                     Name = t.Name,
+                     CategoryId = t.CategoryId,
+                     Image = ImageConverter.GetImagePathToShow(t.Image),
+                     DeveloperId=t.DeveloperId,
+                     DirectorId = t.DirectorId,
+                     Description = t.Description,
+                     Downloads = t.Users.Count(),
+                     GenreId = t.GenreId,
+                     MainActors=t.MainActors,
+                     Length = t.Length,
+                     CategoryName = t.Category.Name,
+                     DeveloperName = t.Developer.FullName,
+                     DirectorName = t.Director.FullName,
+                     InstallInstructions = t.InstallInstructions,
+                     ReleaseDate = t.Year
+                 }).First();
+
+            return torrent;
+        }
+
+        public string GetTorrentId(string torrentName)
+          => this.data.Torrents.FirstOrDefault(x=>x.Name == torrentName).Id;
     }
 }

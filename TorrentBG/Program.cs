@@ -1,3 +1,5 @@
+using TorrentBG.Hubs;
+
 var builder = WebApplication.CreateBuilder(args);
 
 //Add services to the container
@@ -6,8 +8,10 @@ builder.Services.RegisterDbContext(builder.Configuration);
 builder.Services.RegisterAutoMapper();
 builder.Services.RegisterServices();
 builder.Services.AddControllersWithViews();
+builder.Services.AddSignalR();
 
 builder.Services.AddRazorPages();
+
 
 
 var app = builder.Build();
@@ -34,6 +38,8 @@ app.UseEndpoints(endpoints =>
     endpoints.MapRazorPages();
 
 
-   //endpoints.MapHub<SignalrServer>("/signalrserver");
+    
 });
+
+app.MapHub<CommentsHub>("/commentHub");
 app.Run();

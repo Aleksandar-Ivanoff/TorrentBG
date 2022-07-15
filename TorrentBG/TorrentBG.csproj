@@ -8,7 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
     <PackageReference Include="AutoMapper" Version="11.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.6" />
@@ -29,8 +28,14 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<Using Include="TorrentBG.Common"/>
-		<Using Include="TorrentBG.Infrastructure"/>
+		<Using Include="TorrentBG.Common" />
+		<Using Include="TorrentBG.Infrastructure" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Update="wwwroot\js\signalr\dist\browser\signalr.js">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
 	</ItemGroup>
 
 </Project>

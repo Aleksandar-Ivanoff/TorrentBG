@@ -1,6 +1,5 @@
 ﻿namespace TorrentBG.App.Controllers
 {
-    using AspNetCoreHero.ToastNotification.Abstractions;
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
     using Microsoft.AspNetCore.Http;

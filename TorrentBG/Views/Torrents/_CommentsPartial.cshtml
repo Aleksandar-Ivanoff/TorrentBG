@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-8">
-                <form asp-action="CreateComment" data-ajax>
+                <form>
                     <h3 class="pull-left" id="userInput">@this.User.Identity.Name</h3>
                     <button type="submit" class="btn btn-normal pull-right" id="sendButton">Submit</button>
                     <fieldset>
@@ -89,8 +89,12 @@
                     </div>
                 </div>
                 <!-- COMMENT 4 - END -->
-
             </div>
         </div>
     </div>
 </section>
+
+@section Scripts
+{
+<script src="~/js/comment.js"></script>
+}
